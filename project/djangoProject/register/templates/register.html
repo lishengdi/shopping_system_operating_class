@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<form action="{% url 'register_path' %}" method="post">
+    用户名
+    <input name="username" type="text">
+    密码
+    <input type="password" name="password">
+    电话
+    <input name="tel" type="text">
+    地址
+    <input name="location" type="text">
+
+    <input type="submit" value="ok">
+</form>
+</body>
+</html>
