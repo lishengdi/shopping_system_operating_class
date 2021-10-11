@@ -21,7 +21,7 @@ class Goods(models.Model):
     Category=models.IntegerField("商品类型索引",default=0)
     OriginalPrice=models.DecimalField("商品原价",max_digits=10,decimal_places=2)
     Price=models.DecimalField("价格",max_digits=10,decimal_places=2)
-    Status=models.IntegerField("商品状态") #1在售 0完成
+    Status=models.IntegerField("商品状态") #1在售 0完成 -1 下架
     Detail=models.TextField("商品描述")
     UID=models.IntegerField("商家ID",default='',)
 
@@ -40,7 +40,7 @@ class Order(models.Model):
     SID=models.IntegerField("商家ID")
     CID=models.IntegerField("购买者ID")
     Total=models.DecimalField(max_digits=10,decimal_places=2)
-    Time=models.DateTimeField("购买时间")
+    Time=models.DateTimeField("购买时间",auto_now_add=True)
     GuestPhone=models.CharField("收件人电话",max_length=15)
     GuestName=models.CharField("收件人姓名",max_length=30)
     GuestADD=models.TextField("收件人地址")
@@ -54,13 +54,22 @@ class Order(models.Model):
                %(self.OrderID,self.GoodsID,self.SID,self.CID,self.Time,self.Status)
 
 class ShoppingCar(models.Model):
-
     UID=models.IntegerField("用户ID")
     GoodsID=models.IntegerField("商品ID")
-    Time=models.DateTimeField("添加时间")
+    Time=models.DateTimeField("添加时间",auto_now_add=True)
 
     class Meta:
         db_table='ShoppingCar'
 
+    def __str__(self):
+        return 'UID:%s GoodsID:%s Time:%s'%(self.UID,self.GoodsID,self.Time)
+
+class UserCollect(models.Model):
+    UID=models.IntegerField("用户ID")
+    GoodsID=models.IntegerField("商品ID")
+    Time=models.DateTimeField("添加时间",auto_now_add=True)
+
+    class Meta:
+        db_table='UserCollect'
     def __str__(self):
         return 'UID:%s GoodsID:%s Time:%s'%(self.UID,self.GoodsID,self.Time)

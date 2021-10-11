@@ -5,18 +5,23 @@ from Models.models import User
 # Create your views here.
 def check_in(request):
     if request.method=='GET':
-        return render(request,'login.html')
-    if request.method=='POST':
-        ID=(int)(request.POST.get('username',''))
-        Passwd=request.POST.get('password','')
+        stored_id=request.session.get('uid','-1')
+        if(stored_id=='-1'):
+            return render(request,'login.html')
+        else:
+            # return render(request,'index.html')
+            return HttpResponse("index")
 
+    if request.method=='POST':
+        uname=request.POST.get('username','')
+        Passwd=request.POST.get('password','')
         try:
-            usr=User.objects.get(UID__exact=ID)
-            if(Passwd==usr.Passwd):
-                return HttpResponse('check passed')
-            else:
-                return HttpResponse('password error')
+            usr=User.objects.get(UName__exact=uname)
         except Exception as e:
             print('user not exit')
             return HttpResponse('user not exit')
-
+        if (Passwd == usr.Passwd):
+            request.session['uid'] = usr.UID
+            return HttpResponse('check passed')
+        else:
+            return HttpResponse('password error')

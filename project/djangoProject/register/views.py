@@ -11,9 +11,15 @@ def sign_up(request):
         Passwd=request.POST.get('passwd','')
         tel=request.POST.get('tel','')
         loc=request.POST.get('location','')
-
-        try:
-            User.objects.create(UName=UserName,Passwd=Passwd,DefaultADD=loc,UPhone=tel)
-        except Exception as e:
-            print(e)
-        return HttpResponse('OK!')
+        check=User.objects.filter(UName__exact=UserName)
+        if check:
+            return (HttpResponse("该用户已存在，注册失败！"))
+        else:
+            try:
+                User.objects.create(UName=UserName,Passwd=Passwd,DefaultADD=loc,UPhone=tel)
+            except Exception as e:
+                print(e)
+            # usr = User.objects.get(UName__exact=UserName)
+            # request.session['uid']=usr.UID
+            # return render(request, 'index.html')
+            return HttpResponse('passed')

@@ -19,7 +19,10 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('page/lsd',views.page_lsd),
     path('login/',include('login.urls')),
-    path('register/',include('register.urls'))
+    path('register/',include('register.urls')),
+    path('addShoppingCar/',include('addShoppingCar.urls')),
+    path('addMyCollection/',include('addMyCollection.urls')),
+    path('createGoods/',include('createGoods.urls')),
+    path('buy/',include('purchase.urls'))
 ]
