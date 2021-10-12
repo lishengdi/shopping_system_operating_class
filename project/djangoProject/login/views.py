@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from Models.models import User
+from django.urls import reverse
 
 # Create your views here.
 def check_in(request):
@@ -25,3 +26,10 @@ def check_in(request):
             return HttpResponse('check passed')
         else:
             return HttpResponse('password error')
+
+def check_out(request):
+    try:
+        del request.session['uid']
+        return HttpResponseRedirect(reverse('login'))
+    except Exception as e:
+        print(e)
