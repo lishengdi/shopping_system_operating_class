@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+
 from Models.models import Order
 from Models.models import Goods
 from django.urls import reverse
@@ -9,11 +11,11 @@ def Buy(request):
 
     UID=request.session.get('uid','-1')
     if UID=='-1':
-        return HttpResponseRedirect('login.html')
+        return HttpResponseRedirect(reverse("login"))
 
     if request.method=='GET':
-        return render(request,reverse('null'))
-
+        # return render(request,reverse('null'))
+        return HttpResponse("ok")
     if request.method=='POST':
         GoodsID=request.POST.get('goodsid')
 
@@ -26,6 +28,7 @@ def Buy(request):
         GuestPhone=request.POST.get('guestphone')
         GuestName =request.POST.get('guestname')
         GuestADD =request.POST.get('guestadd')
+        ExpressNumber=""
         DepartADD =""
         PayMethod =1
         Status =1
@@ -33,6 +36,6 @@ def Buy(request):
 
         try:
             order=Order.objects.create(CID=UID,GoodsID=GoodsID,SID=SID,Total=Total,GuestADD=GuestADD,GuestPhone=GuestPhone,
-                                       GuestName=GuestName,DepartADD=DepartADD,PayMethod=PayMethod,Status=Status,Comment=Comment)
+                                       GuestName=GuestName,DepartADD=DepartADD,PayMethod=PayMethod,Status=Status,Comment=Comment,ExpressNumber=ExpressNumber)
         except Exception as e:
             print(e)

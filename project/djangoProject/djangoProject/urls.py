@@ -24,5 +24,7 @@ urlpatterns = [
     path('addShoppingCar/',include('addShoppingCar.urls')),
     path('addMyCollection/',include('addMyCollection.urls')),
     path('createGoods/',include('createGoods.urls')),
-    path('buy/',include('purchase.urls'))
+    path('orderHandling/',include('orderHandling.urls')),
+    path('modifyOrder/',include('modifyOrder.urls')),
+    path('modifyGoods/',include('modifyGoods.urls')),
 ]

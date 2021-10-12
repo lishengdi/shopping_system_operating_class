@@ -45,6 +45,7 @@ class Order(models.Model):
     GuestName=models.CharField("收件人姓名",max_length=30)
     GuestADD=models.TextField("收件人地址")
     DepartADD = models.TextField("商家发货地址")
+    ExpressNumber = models.CharField("快递单号",max_length=25,default='')
     PayMethod=models.IntegerField("付款方式")  # 0 WeiChat 1 Alipay 2 ApplePay 3 Uni
     Status=models.IntegerField("订单状态") # 0 待支付 1 待发货 2 已发货 3 完成 4 售后
     Comment=models.TextField("订单评价")

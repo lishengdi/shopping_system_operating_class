@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'purchase',
     'addShoppingCar',
     'addMyCollection',
+    'orderHandling',
+    'modifyOrder',
+    'modifyGoods',
 
 ]
 #中间件

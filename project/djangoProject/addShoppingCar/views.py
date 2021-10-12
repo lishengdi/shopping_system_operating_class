@@ -2,12 +2,13 @@ from django.shortcuts import render
 from Models.models import ShoppingCar
 from Models.models import Goods
 from Models.models import User
+from django.urls import reverse
 from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
 def add(request):
     UID=request.session.get('uid','-1')
     if UID=='-1':
-        return HttpResponseRedirect('login.html') #防止恶意链接
+        return HttpResponseRedirect(reverse("login")) #防止恶意链接
 
     GID=request.GET.get('goodsID','-1')
     if GID=='-1':

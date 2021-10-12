@@ -8,7 +8,7 @@ def create(request):
     # if valid
     UID = request.session.get('uid', '-1')
     if UID == '-1':
-        return HttpResponseRedirect('login.html')
+        return HttpResponseRedirect(reverse("login"))
 
     if request.method=='GET':
        return  render(request,'createGoods.html')

@@ -3,11 +3,12 @@ from Models.models import UserCollect
 from Models.models import Goods
 from Models.models import User
 from django.http import HttpResponse,HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 def add(request):
     UID=request.session.get('uid','-1')
     if UID=='-1':
-        return HttpResponseRedirect('login.html') #防止恶意链接
+        return HttpResponseRedirect(reverse('login.html')) #防止恶意链接
 
     GID=request.GET.get('goodsID','-1')
     if GID=='-1':
