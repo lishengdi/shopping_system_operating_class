@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class User(models.Model):
     UID=models.AutoField("用户ID",primary_key=True)
-    UName=models.CharField("用户名",max_length=30,default='unnamed')
+    UName=models.CharField("用户名",max_length=50,default='unnamed')
     UPhone=models.CharField("用户电话",max_length=15,default='')
     Passwd=models.CharField("密码",max_length=20,default='')
     DefaultADD=models.TextField("默认收货地址",default='未指定')
@@ -42,7 +42,7 @@ class Order(models.Model):
     Total=models.DecimalField(max_digits=10,decimal_places=2)
     Time=models.DateTimeField("购买时间",auto_now_add=True)
     GuestPhone=models.CharField("收件人电话",max_length=15)
-    GuestName=models.CharField("收件人姓名",max_length=30)
+    GuestName=models.CharField("收件人姓名",max_length=50,default='null')
     GuestADD=models.TextField("收件人地址")
     DepartADD = models.TextField("商家发货地址")
     ExpressNumber = models.CharField("快递单号",max_length=25,default='')
