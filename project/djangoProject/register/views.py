@@ -4,6 +4,7 @@ from django.urls import reverse
 from Models.models import User
 # Create your views here.
 def sign_up(request):
+    result=""
     if request.method=='GET':
         return render(request,'register.html')
     if request.method=='POST':
@@ -13,7 +14,8 @@ def sign_up(request):
         loc=request.POST.get('location','')
         check=User.objects.filter(UName__exact=UserName)
         if check:
-            return (HttpResponse("该用户已存在，注册失败！"))
+            result="该用户名已存在，注册失败"
+            return render(request,'register.html',locals())
         else:
             try:
                 User.objects.create(UName=UserName,Passwd=Passwd,DefaultADD=loc,UPhone=tel)
@@ -22,7 +24,8 @@ def sign_up(request):
             # usr = User.objects.get(UName__exact=UserName)
             # request.session['uid']=usr.UID
             # return render(request, 'index.html')
-            return HttpResponse('passed')
+            result = "登录"
+            return render(request,'showResultSuccess.html',locals())
 
 
 def modify(request):

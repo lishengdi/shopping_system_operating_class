@@ -26,7 +26,8 @@ def check_in(request):
             return render(request,"login.html", locals())
         if (Passwd == usr.Passwd):
             request.session['uid'] = usr.UID
-            return HttpResponse('check passed')
+            return HttpResponse("index")
+            # return render(request,"showResultSuccess.html",locals())
         else:
             result = "用户名或密码错误"
             return render(request,"login.html",locals())

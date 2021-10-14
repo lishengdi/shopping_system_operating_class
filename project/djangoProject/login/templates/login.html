@@ -4,7 +4,7 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>小土家用户登录</title>
+    <title>闲趣</title>
     <!-- 引入css初始化文件 -->
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
     <!-- 专属的首页样式 -->
@@ -16,27 +16,26 @@
         <div class="head">
 
                 <ul class="fl">
-                    <li><img src="{% static 'img/xiaotujia.png' %}"></li>
+                    <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height:50px;" alt="logo"></li>
                     <li class="space"></li>
                     <li><span class="bigger">登录</span></li>
                 </ul>
                 <ul class="fr">
-                    <li><span >我还没有小土家账号，马上</span></li>
-                    <li><a href="#">注册</a></li>
+                    <li><span >我还没有闲趣账号，马上</span></li>
+                    <li><a href="{% url 'register' %}">注册</a></li>
                 </ul>
         </div>
-        <div class="nav" style="width: 100%;height: 20px;background: url({% static 'img/nav.png' %} }) no-repeat center top;">
-
+        <img src="{% static 'img/nav.png' %}">
         </div>
         <div class="content">
             <div class="mod-reg">
                 <div class="reg-content">
                     <form action="{% url 'login'%}" method="post" onsubmit="return check()">
-                        <div class="name" > 用&ensp;户&ensp;名：
-                        <input type="text" id="username" name="username" placeholder="请输入用户名" class="">
+                        <div class="name" >
+                            <label for="username"> 用&ensp;户&ensp;名：</label><input type="text" id="username" name="username" placeholder="请输入用户名" class="">
                         </div>
-                        <div class="code" > 密&emsp;&emsp;码：
-                        <input type="password" id="password" name="password" placeholder="请输入密码" class="">
+                        <div class="code" >
+                            <label for="password"> 密&emsp;&emsp;码：</label><input type="password" id="password" name="password" placeholder="请输入密码" class="" style="margin-left: 20px">
                          <text id="result" style="color: red">{{ result }}</text>
                         </div>
                         <div class="submit" >
@@ -45,14 +44,14 @@
                     </form>
                 </div>
                 <div class="picture">
-                    <image src="{% static 'img/bgc.png' %}"> </image>
+                    <img src="{% static 'img/login-pic-big.png' %}" style="width: 400px;height: 400px">
                 </div>
             </div>
         </div>
         <div class="foot">
             <div class="link">
               <p>
-                <a href="#">关于小土家</a>
+                <a href="#">关于闲趣</a>
                 <span>|</span>
                 <a href="#">常见问题</a>
                 <span>|</span>
@@ -67,7 +66,6 @@
              </p>
             </div>
         </div>
-    </div>
 </body>
 <script src="{% static 'js/login.js' %}"> </script>
 </html>
