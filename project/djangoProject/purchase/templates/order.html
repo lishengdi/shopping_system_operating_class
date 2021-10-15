@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}" type="text/css" />
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+
+<div class="wrapper">
+        <div class="head">
+                <ul class="fl">
+                    <li><img src="{% static 'img/logo.png' %}" alt="logo"></li>
+                    <li class="space"></li>
+                    <li><span class="bigger">我的订单</span></li>
+                </ul>
+                <ul class="fr">
+                    <li><span >返回到购物车</span></li>
+                    <li><a href="#">购买</a></li>
+                    <li><i class="shopC"></i></li>
+                </ul>
+        </div>
+
+        <div class="nav"></div>
+
+
+
+        <div class="content">
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th class="gid">商品ID</th>
+                        <th>商品名称</th>
+                        <th>总价</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="number">1234567891</td>
+                        <td class="goods"><img src="image/2.jpg" alt=""/><span>Dior迪奥口红哑光热卖烈焰蓝金唇膏滋润口红</span></td>
+                        <td class="price" style="color: red">5999.88</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+</div>
+
+
+
+<div class="formArea">
+    <form action="" method="post">
+        <div class="input_field">
+            <text class="input_field_text">收件人姓名</text>
+            <input type="text" class="input_field_area">
+
+        </div>
+
+        <div class="input_field">
+            <text class="input_field_text">收件人电话</text>
+            <input type="text" class="input_field_area">
+        </div>
+
+        <div class="input_field">
+            <text class="input_field_text">收件人地址</text>
+        </div>
+
+        <div>
+            <textarea rows="5" cols="35" id="address" name="location" style="resize: none;position: absolute;left: 665px;top:430px"></textarea>
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+        <div class="foot" id="foot" style="background-color:blue">
+             <!-- <label class="fl select-all"><input type="checkbox" class="check-all check"/>&nbsp;全选</label> -->
+             <!-- <a class="fl delete" id="deleteAll" href="javascript:;">删除</a> -->
+             <div class="fr closing">提交订单</div>
+             <div class="fl total">合计：￥<span id="priceTotal">0.00</span></div>
+             <div class="fl selected" id="selected">共计商品
+                 <span id="selectedTotal">0</span>&nbsp;件
+                 <!-- <span class="arrow up">︽</span>
+                 <span class="arrow down">︾</span> -->
+             </div>
+             <div class="selected-view">
+                 <div id="selectedViewList" class="clearfix">
+                     <!--<div><img src="images/1.jpg"><span>取消选择</span></div>-->
+                 </div>
+                 <span class="arrow">◆<span>◆</span></span>
+             </div>
+        </div>
+
+
+
+        <div class="footer">
+            <div class="link">
+              <p>
+                <a href="#">关于闲趣</a>
+                <span>|</span>
+                <a href="#">常见问题</a>
+                <span>|</span>
+                <a href="#">违规投诉</a>
+                <span>|</span>
+                <a href="#">开放平台</a>
+                <span>|</span>
+                <a href="#">用户协议</a>
+                <span>|</span>
+                <a href="#">客服电话：</a>
+                <a class="c" href="#">400-9216-666</a>
+             </p>
+            </div>
+        </div>
+
+
+
+
+</body>
+</html>
+
+
+
+
+

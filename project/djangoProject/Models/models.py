@@ -7,6 +7,8 @@ class User(models.Model):
     UPhone=models.CharField("用户电话",max_length=15,default='')
     Passwd=models.CharField("密码",max_length=20,default='')
     DefaultADD=models.TextField("默认收货地址",default='未指定')
+    userhead=models.FileField(upload_to='userhead',default='/static/img/default.png')
+
 
     class Meta:
         db_table='User'
@@ -17,7 +19,6 @@ class User(models.Model):
 class Goods(models.Model):
     GoodsID=models.AutoField("商品号",primary_key=True)
     GoodsName=models.CharField("商品名",max_length=255,default='')
-    IMG=models.CharField("图片URL",max_length=255,default='')
     Category=models.IntegerField("商品类型索引",default=0)
     OriginalPrice=models.DecimalField("商品原价",max_digits=10,decimal_places=2)
     Price=models.DecimalField("价格",max_digits=10,decimal_places=2)
@@ -74,3 +75,10 @@ class UserCollect(models.Model):
         db_table='UserCollect'
     def __str__(self):
         return 'UID:%s GoodsID:%s Time:%s'%(self.UID,self.GoodsID,self.Time)
+
+class goodsPic(models.Model):
+    goodsID=models.IntegerField("商品ID")
+    img=models.FileField(upload_to='goodsIMG',default='/static/img/default.png')
+
+    class Meta:
+        db_table='goodsPIC'
