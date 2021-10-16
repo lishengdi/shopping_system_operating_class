@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'test' %}" method="post" enctype= "multipart/form-data" onsubmit="check()" >
+
+    <div style="margin-top: 40px;position: absolute;left: 750px " >
+
+        <input type="file" name="myfile" id="upMultilImages" multiple="multiple"   onchange="multiImagePreview()" accept="image/*"  >
+        <div id="picViewsBox"></div>
+    </div>
+
+    <input type="submit" class="setting-save" value="点我立即发布" style="margin-top: 200px;margin-left:150px;font-size:20px;background-color:#3498db;"/>
+
+</form>
+
+<script>
+      var fileDom = document.getElementById("file");
+    var previewDom = document.getElementById("preview");
+    fileDom.addEventListener("change", e=>{
+        var file = fileDom.files[0];
+        // check if input contains a valid image file
+        if (!file || file.type.indexOf("image/") < 0) {
+            fileDom.value = "";
+            previewDom.src = "";
+            return;
+        }
+
+        // use FileReader to load image and show preview of the image
+        var fileReader = new FileReader();
+        fileReader.onload = e=>{
+            previewDom.src = e.target.result;
+        };
+        fileReader.readAsDataURL(file);
+    });
+
+    var formDom = document.getElementById("form");
+    function check() {
+        var file = fileDom.files[0];
+        // check if input contains a valid image file
+        if (!file || file.type.indexOf("image/") < 0) {
+            return false;
+        }
+        return true;
+    }
+
+</script>
+<script type="text/javascript">
+    var all_picW = "100px";//预览的宽度
+    var all_picH = "100px";//预览的高度
+    function multiImagePreview(avalue) {
+        var upMultilImagesObj = document.getElementById("upMultilImages");
+        var picViewsBox = document.getElementById("picViewsBox");
+        picViewsBox.innerHTML = "";
+        var fileList = upMultilImagesObj.files;
+        for (var i = 0; i < fileList.length; i++) {
+            picViewsBox.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
+            var picjPreviewInfo = document.getElementById("img"+i);
+            if (upMultilImagesObj.files && upMultilImagesObj.files[i]) {
+                //火狐
+                picjPreviewInfo.style.display = 'block';
+                picjPreviewInfo.style.width = all_picW;
+                picjPreviewInfo.style.height = all_picH;
+                //picjPreviewInfo.src = upMultilImagesObj.files[0].getAsDataURL();
+                //火狐7+版本,用不了getAsDataURL()
+                picjPreviewInfo.src = window.URL.createObjectURL(upMultilImagesObj.files[i]);
+            } else {
+                //IE
+                upMultilImagesObj.select();
+                var picTagSrc = document.selection.createRange().text;
+                alert(picTagSrc);
+                var localImagId = document.getElementById("img" + i);
+                //设置初始大小
+                localImagId.style.width = all_picW;
+                localImagId.style.height = all_picH;
+                //图片异常捕捉
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = picTagSrc;
+                }
+                catch (e) {
+                    alert("图片格式不正确!");
+                    return false;
+                }
+                picjPreviewInfo.style.display = 'none';
+                document.selection.empty();
+            }
+        }
+        return true;
+    }
+</script>
+
+
+</body>
+</html>

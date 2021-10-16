@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>闲趣-发布商品</title>
+
+    <link rel="stylesheet" href="{% static 'css/user.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}"/>
+
+    <style>
+        .container{padding-top:10px}
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="head">
+        <ul class="fl">
+            <li><img src="{% static 'img/logo.png' %}"style="width: 50px;height:50px;" alt="logo"></li>
+            <li class="space"></li>
+            <li><span class="bigger">商品发布</span></li>
+        </ul>
+        <ul class="fr">
+            <li><span >返回</span></li>
+            <li><a href="#">个人中心</a></li>
+            <li><i class="shopC"></i></li>
+        </ul>
+    </div>
+
+    <div>
+        <img src="{% static 'img/nav.png' %} "style="margin-left: 200px">
+    </div>
+
+</div>
+
+
+
+<div id="user_content" style=" width: 800px;height:650px;margin-left: 450px; margin-top: -50px ">
+    <div class="basic">
+        <form action="{%url 'createGoods'%}" method="post" role="form" enctype="multipart/form-data">
+            <h1 style="margin-left: 210px;">发布闲置</h1><hr />
+            <div class="changeinfo">
+                <span>商品名：</span>
+                <input class="in_info" type="text" name="goodsname" placeholder="请输入物品名"/>
+                <span>(*必填)</span>
+            </div>
+            <div class="changeinfo">
+                <span>出售价格：</span>
+                <input class="in_info" type="text" name="price" placeholder="请输入出售价格"/>
+                <span>(*必填)</span>
+            </div>
+            <div class="changeinfo">
+                <span>商品原价：</span>
+                <input class="in_info" type="text" name="originalprice" placeholder="请输入商品原价"/>
+                <span>(*必填)</span>
+            </div>
+
+            <div class="changeinfo">
+                <span>商品分类： </span>
+                        <select class="in_info" name="category">
+                            <option value="1">数码</option>
+                            <option value="2">交通代步</option>
+                            <option value="3">电器</option>
+                            <option value="4">图书教材</option>
+                            <option value="5">美妆</option>
+                            <option value="9">食品</option>
+                            <option value="6">服饰</option>
+                            <option value="7">娱乐</option>
+                            <option value="8">虚拟物品</option>
+
+                        <option value="7"></option>
+                    </select>
+
+            </div>
+
+            <div class="changeinfo" id="dir">
+                <span>商品描述：</span>
+                <div class="sha">
+                    <div class="publ">
+                        <div class="pub_con">
+                            <div class="text_pu">
+                                <textarea rows="10" cols="40" id="address" name="detail" style="resize: none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <hr />
+            <div style="margin-top: 40px;position: absolute;left: 750px " >
+
+                <input type="file"  name="img" id="upMultilImages" multiple="multiple"   onchange="javascript:multiImagePreview();" accept="image/*" >
+                <div id="picViewsBox"></div>
+            </div>
+            <text style="position:absolute; left:630px; top:820px;color: gray">商品图片:</text>
+            <input type="submit" class="setting-save" value="点我立即发布" style="margin-top: 200px;margin-left:150px;font-size:20px;background-color:#3498db;"/>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    var fileDom = document.getElementById("file");
+    var previewDom = document.getElementById("preview");
+    fileDom.addEventListener("change", e=>{
+        var file = fileDom.files[0];
+        // check if input contains a valid image file
+        if (!file || file.type.indexOf("image/") < 0) {
+            fileDom.value = "";
+            previewDom.src = "";
+            return;
+        }
+
+        // use FileReader to load image and show preview of the image
+        var fileReader = new FileReader();
+        fileReader.onload = e=>{
+            previewDom.src = e.target.result;
+        };
+        fileReader.readAsDataURL(file);
+    });
+
+    var formDom = document.getElementById("form");
+    function check() {
+        var file = fileDom.files[0];
+        // check if input contains a valid image file
+        if (!file || file.type.indexOf("image/") < 0) {
+            return false;
+        }
+        return true;
+    }
+</script>
+<script type="text/javascript">
+    var all_picW = "100px";//预览的宽度
+    var all_picH = "100px";//预览的高度
+    function multiImagePreview(avalue) {
+        var upMultilImagesObj = document.getElementById("upMultilImages");
+        var picViewsBox = document.getElementById("picViewsBox");
+        picViewsBox.innerHTML = "";
+        var fileList = upMultilImagesObj.files;
+        for (var i = 0; i < fileList.length; i++) {
+            picViewsBox.innerHTML += "<div style='float:left' > <img id='img" + i + "'  /> </div>";
+            var picjPreviewInfo = document.getElementById("img"+i);
+            if (upMultilImagesObj.files && upMultilImagesObj.files[i]) {
+                //火狐
+                picjPreviewInfo.style.display = 'block';
+                picjPreviewInfo.style.width = all_picW;
+                picjPreviewInfo.style.height = all_picH;
+                //picjPreviewInfo.src = upMultilImagesObj.files[0].getAsDataURL();
+                //火狐7+版本,用不了getAsDataURL()
+                picjPreviewInfo.src = window.URL.createObjectURL(upMultilImagesObj.files[i]);
+            } else {
+                //IE
+                upMultilImagesObj.select();
+                var picTagSrc = document.selection.createRange().text;
+                alert(picTagSrc);
+                var localImagId = document.getElementById("img" + i);
+                //设置初始大小
+                localImagId.style.width = all_picW;
+                localImagId.style.height = all_picH;
+                //图片异常捕捉
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = picTagSrc;
+                }
+                catch (e) {
+                    alert("图片格式不正确!");
+                    return false;
+                }
+                picjPreviewInfo.style.display = 'none';
+                document.selection.empty();
+            }
+        }
+        return true;
+    }
+</script>
+
+
+
+</body>
+</html>

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from experiment import views as experimentView
 from . import views
 
 urlpatterns = [
@@ -30,5 +30,6 @@ urlpatterns = [
     path('orderHandling/',include('orderHandling.urls')),
     path('modifyOrder/',include('modifyOrder.urls')),
     path('modifyGoods/',include('modifyGoods.urls')),
+    path('test/',experimentView.file_upload_test,name="test"),
 ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

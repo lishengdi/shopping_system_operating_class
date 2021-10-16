@@ -2,6 +2,7 @@ from django.shortcuts import render
 from Models.models import Goods
 from django.urls import reverse
 from django.http import HttpResponse,HttpResponseRedirect
+from Models.models import goodsPic
 # Create your views here.
 
 def create(request):
@@ -16,15 +17,24 @@ def create(request):
 
     if request.method=='POST':
         GoodsName=request.POST.get('goodsname')
-        IMG=request.POST.get('img')
         Category=request.POST.get('category')
         OriginalPrice=request.POST.get('originalprice')
         Price=request.POST.get('price')
         Detail=request.POST.get('detail')
 
         try:
-            Goods.objects.create(GoodsName=GoodsName,IMG=IMG,Category=Category,Status=1,OriginalPrice=OriginalPrice,
+            goods=Goods.objects.create(GoodsName=GoodsName,Category=Category,Status=1,OriginalPrice=OriginalPrice,
                              Price=Price,Detail=Detail,UID=UID)
         except Exception as e:
             print(e)
             return HttpResponse("发布闲置：发布失败！")
+        pics=request.FILES.getlist('img')
+        try:
+            for f in pics:
+                goodsPic.objects.create(goodsID=goods.GoodsID,img=f)
+        except Exception as e:
+            print("发布商品：保存图片失败！")
+            print(e)
+
+        result="发布"
+        return render(request,'showResultSuccess.html',locals())

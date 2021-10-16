@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'orderHandling',
     'modifyOrder',
     'modifyGoods',
+    'experiment'
 
 ]
 #中间件
