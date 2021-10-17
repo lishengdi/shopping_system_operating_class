@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
 urlpatterns = [
-    path('<int:goodsID>',views.add,name="addMyCollection"),
-]
+    path('add/<int:goodsID>',views.add,name="addMyCollection"),
+    path('delete/<int:goodsID>',views.delete,name="deleteMyCollection"),
+    ]

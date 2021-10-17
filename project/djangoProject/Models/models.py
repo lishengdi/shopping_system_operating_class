@@ -7,7 +7,6 @@ class User(models.Model):
     UPhone=models.CharField("用户电话",max_length=15,default='')
     Passwd=models.CharField("密码",max_length=20,default='')
     DefaultADD=models.TextField("默认收货地址",default='未指定')
-    userhead=models.FileField(upload_to='userhead',default='/static/img/default.png')
 
 
     class Meta:

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    {# 商品名标题   #}
+    <title>{{ goods.GoodsName }}的商品详情</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/comody.css'%}" type="text/css" />
+   <script src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+   <script src="{% static 'js/common.js' %}"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+	  var showproduct = {
+		  "boxid":"showbox",
+		  "sumid":"showsum",
+		  "boxw":400,
+		  "boxh":550,
+		  "sumw":60,//列表每个宽度,该版本中请把宽高填写成一样
+		  "sumh":60,//列表每个高度,该版本中请把宽高填写成一样
+		  "sumi":7,//列表间隔
+		  "sums":5,//列表显示个数
+		  "sumsel":"sel",
+		  "sumborder":1,//列表边框，没有边框填写0，边框在css中修改
+		  "lastid":"showlast",
+		  "nextid":"shownext"
+		  };//参数定义	  
+	 $.ljsGlasses.pcGlasses(showproduct);//方法调用，务必在加载完后执行
+	 
+	 $(function(){
+
+		$('.tabs a').click(function(){
+			
+			var $this=$(this);
+			$('.panel').hide();
+			$('.tabs a.active').removeClass('active');
+			$this.addClass('active').blur();
+			var panel=$this.attr("href");
+			$(panel).show();				
+			return fasle;  //告诉浏览器  不要纸箱这个链接
+			})//end click
+			
+			
+			$(".tabs li:first a").click()   //web 浏览器，单击第一个标签吧
+	
+
+		
+		})//end ready
+		
+		$(".centerbox li").click(function(){
+			$("li").removeClass("now");
+			$(this).addClass("now")
+			
+			});
+		
+			
+});
+</script>
+</head>
+
+<body>
+<!-----header部分------->
+<div class="header">
+<div class="top" style=" height:32px;
+	background:url({% static 'img/header_bg.jpg' %}) repeat-x;margin:0 auto; ">
+	<div class="top1">
+        <a href="{% url 'logout' %}">{{username}}|退出登录</a>
+                {# 购物车链接       #}
+		<a href="#"><img src="{% static 'img/top1.jpg' %}">我的购物车</a>
+	</div>
+</div>
+
+<!-----logo_search部分------->
+<div class="logobg" style="height:150px;background:url({% static 'img/IMG_2688.jpg' %})  center no-repeat;">
+	<div class="center">
+		<div class="logo">
+			<img src="{% static 'img/login-pic-big.png' %}" style="margin-top:-10px;width:150px;height:150px"/>
+		</div>
+	</div>
+</div>
+
+
+    
+    
+</div>
+<!-----header结束------->
+
+
+
+<!-----商品详情部分------->
+<div class="shopdetails">
+	<!-------放大镜-------->
+	<div id="leftbox">
+	<div id="showbox">
+{% if nopic == "yes"%}
+     <img src="{% static 'img/default.png' %}" width="400" height="400" />
+{% else %}
+    {% for p in pics %}
+         <img src="{{ p.img.url }}" width="400" height="400" />
+    {% endfor %}
+
+{% endif %}
+{#  <img src="images/shopdetail/img05.png" width="400" height="400" />#}
+{#  <img src="images/shopdetail/img01.png" width="400" height="400" />#}
+
+    </div><!--展示图片盒子-->
+
+        <div id="showsum"></div><!--展示图片里边-->
+		<p class="showpage">
+ 		 <a href="javascript:void(0);" id="showlast"> < </a>
+  		 <a href="javascript:void(0);" id="shownext"> > </a>
+		</p>
+        
+	</div>
+    <!----中间----->
+
+    <div class="centerbox">
+    	<p class="imgname">{{ goods.GoodsName }}</p>
+    	<p class="price">商品价格：<samp>￥{{ goods.Price }}</samp></p>
+        <p class="price">商品原价：<samp ><text class="originalprice">￥{{ goods.OriginalPrice }}</text></samp></p>
+        <p class="number" >商品ID：<samp>{{ goods.GoodsID }}</samp></p>
+        <p class="store">库存量：<samp>1</samp>&nbsp&nbsp件</p>
+        <p class="store">卖家：<samp>{{ sname }}</samp>&nbsp ID:&nbsp{{ goods.UID }}</p>
+
+        <div class="favourite" id="favourite" style="width:80px;display: flex;align-items: center;justify-content: space-between;
+            margin-top: 40px;margin-left: 60px" >
+            <text style="font-size: 15px">收藏</text>
+
+                    {#显示收藏状态#}
+
+            {% if ifstar %}
+                <img src="{% static 'img/star.png' %}" id="star" style="width: 35px;height: 35px">
+            {% else %}
+                <img src="{% static 'img/unstar.png' %}" id="star" style="width: 35px;height: 35px">
+            {% endif %}
+
+        </div>
+
+        <script>
+            star=document.getElementById('star')
+        </script>
+        
+        <p class="buy"><a href="{% url 'buy' goodsID=goods.GoodsID %}" id="firstbuy">立即购买</a><a href="#">加入购物车</a></p>
+   		<div class="clear"></div>
+        
+        <p class="fuwu" style="background-image:url({% static 'img/tell08.png' %});">服务承诺：</p>
+        <p class="pay" style="background-image:url({% static 'img/tell09.png' %});">支付方式：</p>
+    </div>
+ 
+	<!-----右边------->
+        {# 相似商品推荐       #}
+   <div class="rightbox">
+    	<p class="name">相似商品</p>
+                {# 相关商品推荐   #}
+    	<img src="{% static 'img/default.png' %}" width="130" height="180">
+		<p>￥58元</p>
+     
+    	<img src="{% static 'img/default.png' %}" width="130" height="180">
+		<p>￥58元</p>
+        
+        
+    	<img src="{% static 'img/default.png' %}" width="130" height="180">
+		<p>￥58元</p>
+    </div>
+</div>
+<!-----商品详情部分结束------->
+
+
+
+
+
+
+
+<!-----商品详情评价部分-------> 
+<div class="evaluate">
+
+	<div class="classify">
+    	
+        <div class="shopsee">
+        	<p class="name">热销商品</p>
+                {# 静态，目前仅演示   #}
+            <a href="#" class="ex01">
+				<img src="{% static 'img/content_04.jpg' %}" width="170" height="245">
+				<p>木质烘脚器</p>
+				<p>商城价:￥108元</p>
+			</a>
+            <a href="#" class="ex01">
+				<img src="{% static 'img/see08.png' %}" width="170" height="245">
+				<p>个性实木壁灯</p>
+				<p>商城价:￥68元</p>
+			</a>
+            <a href="#" class="ex01">
+				<img src="{% static 'img/see09.png' %}" width="170" height="245">
+				<p>创意马克杯</p>
+				<p>商城价:￥58元</p>
+			</a>
+		</div>
+ </div>
+
+
+
+ <div class="tabbedPanels">
+    	<ul class="tabs">
+        	<li ><a href="#panel01">商品详情</a></li>
+        </ul>
+        
+     <div class="panelContainer">
+       	<div class="panel" id="panel01">
+        	<p class="sell">商品描述</p>
+            <p class="text">{{ goods.Detail }}</p>
+            <p></p>
+            <p class="sell">商品实拍</p>
+                    {# 商品图片  #}
+            {% if nopic == "yes"%}
+                 <img src="{% static 'img/default.png' %}"  />
+                        {% else %}
+                {% for p in pics %}
+                     <img src="{{ p.img.url }}" style="width: 400px;"  />
+                {% endfor %}
+             {% endif %}
+
+        	<div class="clear"></div>
+        </div>
+
+         </div>
+    
+    </div>
+
+</div>
+
+<!-----商品详情评价部结束分-------> 
+
+
+<!----bottom_页脚部分----->
+<div class="backf">
+<div id="footer">
+	 <ul>
+  <li class="sy">支付方式</li>
+  <li><a href="#">在线支付</a></li>
+  <li><a href="#">货到付款</a></li>
+  <li><a href="#">发票说明</a></li>
+  <li><a href="#">余额宝</a></li>
+  
+  </ul>
+    <ul>
+  <li class="sy">购物指南</li>
+  <li><a href="#">免费注册</a></li>
+  <li><a href="#">申请会员</a></li>
+  <li><a href="#">开通商大付</a></li>
+  <li><a href="#">一卡通充值</a></li>
+  </ul>
+  <ul>
+  <li class="sy">商家服务</li>
+  <li><a href="#">联系我们</a></li>
+  <li><a href="#">客服服务</a></li>
+  <li><a href="#">物流服务</a></li>
+  <li><a href="#">缺货赔付</a></li>
+  </ul>
+    <ul>
+  <li class="sy">关于我们</li>
+  <li><a href="#">知识产权</a></li>
+  <li><a href="#">网站合作</a></li>
+  <li><a href="#">规则意见</a></li>
+  <li><a href="#">帮助中心</a></li>
+  </ul>
+    <ul>
+  <li class="sy">其他服务</li>
+  <li><a href="#">诚聘英才</a></li>
+  <li><a href="#">法律声明</a></li>
+
+  </ul><div class="clear"></div>
+</div>	
+    <div class="foot">
+    	 <p>使用本网站即表示接受"闲趣"用户协议</p>
+         <p>——————————————————版权所有——————————————————</p>
+    
+	</div>
+</div>
+
+</body>
+</html>
