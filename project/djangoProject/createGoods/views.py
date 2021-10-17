@@ -37,4 +37,4 @@ def create(request):
             print(e)
 
         result="发布"
-        return render(request,'showResultSuccess.html',locals())
+        return render(request,'Success_createGoods.html',locals())

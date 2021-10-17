@@ -31,5 +31,6 @@ urlpatterns = [
     path('modifyOrder/',include('modifyOrder.urls')),
     path('modifyGoods/',include('modifyGoods.urls')),
     path('test/',experimentView.file_upload_test,name="test"),
+    path('purchase/',include('purchase.urls'),name='buy')
 ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

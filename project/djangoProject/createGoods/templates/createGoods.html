@@ -38,27 +38,27 @@
 
 <div id="user_content" style=" width: 800px;height:650px;margin-left: 450px; margin-top: -50px ">
     <div class="basic">
-        <form action="{%url 'createGoods'%}" method="post" role="form" enctype="multipart/form-data">
+        <form action="{%url 'createGoods'%}" method="post" id="form"  enctype="multipart/form-data" >
             <h1 style="margin-left: 210px;">发布闲置</h1><hr />
             <div class="changeinfo">
                 <span>商品名：</span>
-                <input class="in_info" type="text" name="goodsname" placeholder="请输入物品名"/>
+                <input class="in_info" type="text" name="goodsname" id="goodsname" placeholder="请输入物品名"/>
                 <span>(*必填)</span>
             </div>
             <div class="changeinfo">
                 <span>出售价格：</span>
-                <input class="in_info" type="text" name="price" placeholder="请输入出售价格"/>
+                <input class="in_info" type="text" name="price" id="price" placeholder="请输入出售价格"/>
                 <span>(*必填)</span>
             </div>
             <div class="changeinfo">
                 <span>商品原价：</span>
-                <input class="in_info" type="text" name="originalprice" placeholder="请输入商品原价"/>
+                <input class="in_info" type="text" name="originalprice"  id="originalprice" placeholder="请输入商品原价"/>
                 <span>(*必填)</span>
             </div>
 
             <div class="changeinfo">
                 <span>商品分类： </span>
-                        <select class="in_info" name="category">
+                        <select class="in_info" name="category" id="category">
                             <option value="1">数码</option>
                             <option value="2">交通代步</option>
                             <option value="3">电器</option>
@@ -68,8 +68,7 @@
                             <option value="6">服饰</option>
                             <option value="7">娱乐</option>
                             <option value="8">虚拟物品</option>
-
-                        <option value="7"></option>
+                            <option value="9">日常用品</option>
                     </select>
 
             </div>
@@ -80,7 +79,7 @@
                     <div class="publ">
                         <div class="pub_con">
                             <div class="text_pu">
-                                <textarea rows="10" cols="40" id="address" name="detail" style="resize: none"></textarea>
+                                <textarea rows="10" cols="40" id="detail" name="detail" style="resize: none"></textarea>
                             </div>
                         </div>
                     </div>
@@ -88,14 +87,15 @@
             </div>
             <br />
             <hr />
-            <div style="margin-top: 40px;position: absolute;left: 750px " >
+            <div style="margin-top: 92px;position: absolute;left: 750px " >
 
                 <input type="file"  name="img" id="upMultilImages" multiple="multiple"   onchange="javascript:multiImagePreview();" accept="image/*" >
                 <div id="picViewsBox"></div>
             </div>
             <text style="position:absolute; left:630px; top:820px;color: gray">商品图片:</text>
-            <input type="submit" class="setting-save" value="点我立即发布" style="margin-top: 200px;margin-left:150px;font-size:20px;background-color:#3498db;"/>
+
         </form>
+        <button  class="setting-save" id="submit" onclick="check()" style="margin-top: 200px;margin-left:150px;font-size:20px;background-color:#3498db;">点我立即发布</button>
     </div>
 </div>
 
@@ -121,15 +121,26 @@
         fileReader.readAsDataURL(file);
     });
 
-    var formDom = document.getElementById("form");
-    function check() {
-        var file = fileDom.files[0];
+
+function check() {
+
+        var formDom = document.getElementById("form");
+        var goodsname=document.getElementById("goodsname");
+        var price=document.getElementById("price");
+        var originalprice=document.getElementById("originalprice");
+        var category=document.getElementById("category");
+        var detail=document.getElementById("detail");
+
         // check if input contains a valid image file
-        if (!file || file.type.indexOf("image/") < 0) {
-            return false;
+
+        if(goodsname.value!=="" && price.value!==""&&originalprice.value!==""&&category.value!=="0"&&detail.value!==""){
+            formDom.submit();
         }
-        return true;
+        else{
+            alert("所有商品信息不能为空！")
+        }
     }
+
 </script>
 <script type="text/javascript">
     var all_picW = "100px";//预览的宽度

@@ -1,5 +1,5 @@
 Goods:
-    Status "商品状态"  1 在售 0 完成 -1 下架
+    Status "商品状态"  1 在售 0 下架
     Category 
 Order:
     PayMethod "付款方式"  0 WeiChat 1 Alipay 2 ApplePay 3 Union
@@ -15,3 +15,4 @@ Order:
                             <option value="6">服饰</option>
                             <option value="7">娱乐</option>
                             <option value="8">虚拟物品</option>
+                            <option value="9">日常用品</option>

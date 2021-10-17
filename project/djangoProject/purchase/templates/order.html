@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的订单</title>
+    <title>购买</title>
     <!-- <link rel="stylesheet" href="css/style.css"/> -->
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'css/order.css' %}" type="text/css" />
@@ -14,13 +14,13 @@
 <div class="wrapper">
         <div class="head">
                 <ul class="fl">
-                    <li><img src="{% static 'img/logo.png' %}" alt="logo"></li>
+                    <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height:50px;" alt="logo"></li>
                     <li class="space"></li>
                     <li><span class="bigger">我的订单</span></li>
                 </ul>
                 <ul class="fr">
-                    <li><span >返回到购物车</span></li>
-                    <li><a href="#">购买</a></li>
+                    <li><span >返回</span></li>
+                    <li><a href="#">商品详情</a></li>
                     <li><i class="shopC"></i></li>
                 </ul>
         </div>
@@ -40,9 +40,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="number">1234567891</td>
-                        <td class="goods"><img src="image/2.jpg" alt=""/><span>Dior迪奥口红哑光热卖烈焰蓝金唇膏滋润口红</span></td>
-                        <td class="price" style="color: red">5999.88</td>
+                        <td class="number">{{ goods.GoodsID }}</td>
+                        <td class="goods">
+                            {% if nopic == "yes"%}
+                                <img src="{% static 'img/default.png' %}" alt=""/>
+                           {% else %}
+                             <img src="{{pic}}" alt=""/>
+                            {% endif %}
+                            <span>{{ goods.GoodsName }}</span></td>
+                        <td class="price" style="color: red">{{ goods.Price }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -54,24 +60,25 @@
 
 
 <div class="formArea">
-    <form action="" method="post">
+    <form action="{% url 'buy' GID %}" method="post" id="form">
         <div class="input_field">
             <text class="input_field_text">收件人姓名</text>
-            <input type="text" class="input_field_area">
+            <input type="text" class="input_field_area" name="guestname" id="cname" value="{{usr.UName}}">
 
         </div>
 
         <div class="input_field">
             <text class="input_field_text">收件人电话</text>
-            <input type="text" class="input_field_area">
+            <input type="text" class="input_field_area" name="guestphone" id="cphone" value="{{ usr.UPhone }}">
         </div>
 
         <div class="input_field">
-            <text class="input_field_text">收件人地址</text>
+            <text class="input_field_text" >收件人地址</text>
         </div>
 
         <div>
-            <textarea rows="5" cols="35" id="address" name="location" style="resize: none;position: absolute;left: 665px;top:430px"></textarea>
+            <textarea rows="5" cols="35" id="cadd" name="guestadd" style="resize: none;position: absolute;left: 620px;top:430px">{{ usr.DefaultADD }}</textarea>
+
         </div>
     </form>
 
@@ -84,10 +91,10 @@
         <div class="foot" id="foot" style="background-color:blue">
              <!-- <label class="fl select-all"><input type="checkbox" class="check-all check"/>&nbsp;全选</label> -->
              <!-- <a class="fl delete" id="deleteAll" href="javascript:;">删除</a> -->
-             <div class="fr closing">提交订单</div>
-             <div class="fl total">合计：￥<span id="priceTotal">0.00</span></div>
+             <div class="fr closing" id="submit">提交订单</div>
+             <div class="fl total">合计：￥<span id="priceTotal">{{ goods.Price }}</span></div>
              <div class="fl selected" id="selected">共计商品
-                 <span id="selectedTotal">0</span>&nbsp;件
+                 <span id="selectedTotal">1</span>&nbsp;件
                  <!-- <span class="arrow up">︽</span>
                  <span class="arrow down">︾</span> -->
              </div>
@@ -98,6 +105,7 @@
                  <span class="arrow">◆<span>◆</span></span>
              </div>
         </div>
+
 
 
 
@@ -126,6 +134,37 @@
 </body>
 </html>
 
+<script>
+    var btn=document.getElementById("submit");
+    var form=document.getElementById("form")
+    btn.onclick=function (){
+       if(check_purchase()) {
+           form.submit()
+       }
+    }
+
+
+
+    function check_purchase(){
+        var cname=document.getElementById("cname");
+        var cphone=document.getElementById("cphone");
+          var cadd=document.getElementById("cadd");
+
+          var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+        if(!myreg.test(cphone.value)){
+             alert("手机号码格式错误：请输入有效手机号码")
+            return false
+        }
+
+          if(cname.value!==""&&cphone.value!==""&&cadd.value!==""){
+              return true
+          }else {
+              alert("收件人信息不可为空，请重新填写")
+              return false
+          }
+    }
+
+</script>
 
 
 

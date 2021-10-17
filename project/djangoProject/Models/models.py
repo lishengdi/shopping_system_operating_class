@@ -22,7 +22,7 @@ class Goods(models.Model):
     Category=models.IntegerField("商品类型索引",default=0)
     OriginalPrice=models.DecimalField("商品原价",max_digits=10,decimal_places=2)
     Price=models.DecimalField("价格",max_digits=10,decimal_places=2)
-    Status=models.IntegerField("商品状态") #1在售 0完成 -1 下架
+    Status=models.IntegerField("商品状态") #1在售 0下架
     Detail=models.TextField("商品描述")
     UID=models.IntegerField("商家ID",default='',)
 
@@ -78,7 +78,7 @@ class UserCollect(models.Model):
 
 class goodsPic(models.Model):
     goodsID=models.IntegerField("商品ID")
-    img=models.FileField(upload_to='goodsIMG',default='/static/img/default.png')
+    img=models.ImageField(upload_to='goodsIMG',default='/static/img/default.png')
 
     class Meta:
         db_table='goodsPIC'
