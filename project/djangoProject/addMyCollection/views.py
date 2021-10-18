@@ -18,14 +18,19 @@ def add(request,goodsID):
     try:
         goods=Goods.objects.get(GoodsID__exact=goodsID)
     except Exception as e:
-        print("购物车：货物不存在")
+        print("收藏：货物不存在")
         return HttpResponse("该货物不存在或已下架")
+
+    if goods.Status!=1:
+        return HttpResponse("收藏：该货物不存在或已下架")
+
     try:
         UserCollect.objects.create(UID=UID,GoodsID=goodsID)
     except Exception as e :
         print(e)
         return HttpResponse("收藏：添加失败")
 
+    return HttpResponse("Added")
 
 def delete(request,goodsID):
     UID = request.session.get('uid', '-1')
@@ -42,4 +47,5 @@ def delete(request,goodsID):
         target.delete()
     except Exception as e:
         print(e)
-        return HttpResponse("购物车：删除失败")
+        return HttpResponse("收藏：删除失败")
+    return HttpResponse("Deleted")

@@ -30,25 +30,7 @@
 		  };//参数定义	  
 	 $.ljsGlasses.pcGlasses(showproduct);//方法调用，务必在加载完后执行
 	 
-	 $(function(){
 
-		$('.tabs a').click(function(){
-			
-			var $this=$(this);
-			$('.panel').hide();
-			$('.tabs a.active').removeClass('active');
-			$this.addClass('active').blur();
-			var panel=$this.attr("href");
-			$(panel).show();				
-			return fasle;  //告诉浏览器  不要纸箱这个链接
-			})//end click
-			
-			
-			$(".tabs li:first a").click()   //web 浏览器，单击第一个标签吧
-	
-
-		
-		})//end ready
 		
 		$(".centerbox li").click(function(){
 			$("li").removeClass("now");
@@ -127,23 +109,23 @@
 
         <div class="favourite" id="favourite" style="width:80px;display: flex;align-items: center;justify-content: space-between;
             margin-top: 40px;margin-left: 60px" >
-            <text style="font-size: 15px">收藏</text>
+            <text style="font-size: 15px" id="starText">收藏</text>
 
                     {#显示收藏状态#}
 
             {% if ifstar %}
-                <img src="{% static 'img/star.png' %}" id="star" style="width: 35px;height: 35px">
+                <img src="{% static 'img/star.png' %}" id="starICON" style="width: 35px;height: 35px">
+                <input type="hidden"  id="StatusTag" value="star">
             {% else %}
-                <img src="{% static 'img/unstar.png' %}" id="star" style="width: 35px;height: 35px">
+                <img src="{% static 'img/unstar.png' %}" id="starICON" style="width: 35px;height: 35px">
+                <input type="hidden"  id="StatusTag" value="unstar">
             {% endif %}
 
         </div>
 
-        <script>
-            star=document.getElementById('star')
-        </script>
+
         
-        <p class="buy"><a href="{% url 'buy' goodsID=goods.GoodsID %}" id="firstbuy">立即购买</a><a href="#">加入购物车</a></p>
+        <p class="buy"><a href="{% url 'buy' goodsID=goods.GoodsID %}" id="firstbuy">立即购买</a><a href="javascript:addShoppingCar();">加入购物车</a></p>
    		<div class="clear"></div>
         
         <p class="fuwu" style="background-image:url({% static 'img/tell08.png' %});">服务承诺：</p>
@@ -154,16 +136,16 @@
         {# 相似商品推荐       #}
    <div class="rightbox">
     	<p class="name">相似商品</p>
+
                 {# 相关商品推荐   #}
-    	<img src="{% static 'img/default.png' %}" width="130" height="180">
-		<p>￥58元</p>
-     
-    	<img src="{% static 'img/default.png' %}" width="130" height="180">
-		<p>￥58元</p>
-        
-        
-    	<img src="{% static 'img/default.png' %}" width="130" height="180">
-		<p>￥58元</p>
+       {% for g in similarGoods %}
+
+            <img src="{{ g.mainPic }}" width="130" height="130">
+           <p>{{ g.GoodsName }}</p>
+            <p>￥{{ g.Price }}元</p>
+       {% endfor %}
+
+
     </div>
 </div>
 <!-----商品详情部分结束------->
@@ -282,3 +264,59 @@
 
 </body>
 </html>
+
+     <script>
+            star=document.getElementById('starICON');
+            tag=document.getElementById('StatusTag').value;
+            text=document.getElementById('starText')
+
+            var httpRequest = new XMLHttpRequest();//第一步：建立所需的对象
+
+        httpRequest.onreadystatechange = function () {
+             if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                var res = httpRequest.responseText;
+                if (res==='Added'){
+                    alert("收藏成功！")
+                    text.value="已收藏"
+                    star.src="{% static 'img/star.png' %}"
+                    tag="star"
+                }
+                if (res==='Deleted'){
+                    alert("已取消收藏")
+                    text.value="收藏"
+                    star.src="{% static 'img/unstar.png' %}"
+                    tag="unstar"
+                }
+                if(res==='ShoppingCar_Added'){
+                    alert("添加购物车成功！")
+                }
+                if(res==="already exit"){
+                    alert("商品已在您的购物车中啦！")
+                }
+
+                else {
+                    console(res)
+                }
+
+             }
+
+        }
+
+            star.onclick=function (){
+                if (tag==='star'){
+                    httpRequest.open('GET', '{% url 'deleteMyCollection' goods.GoodsID %}', true);
+                    httpRequest.send();
+                }
+                if(tag==='unstar'){
+                    httpRequest.open('GET', '{% url 'addMyCollection' goods.GoodsID %}', true);
+                    httpRequest.send();
+                }
+            };
+
+        function addShoppingCar(){
+                 httpRequest.open('GET', '{% url 'addShoppingCar' goods.GoodsID %}', true);
+                    httpRequest.send();
+        }
+
+
+        </script>

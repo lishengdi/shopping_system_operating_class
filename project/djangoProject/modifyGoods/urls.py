@@ -2,5 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('<int:goodsID>',views.modify),
+    path('modify/<int:goodsID>',views.modify),
+    path('delete/<int:goodsID>',views.deleteGoods),
+
 ]

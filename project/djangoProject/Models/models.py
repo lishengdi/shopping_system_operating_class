@@ -24,6 +24,7 @@ class Goods(models.Model):
     Status=models.IntegerField("商品状态") #1在售 0下架
     Detail=models.TextField("商品描述")
     UID=models.IntegerField("商家ID",default='',)
+    mainPic=models.CharField("商品首图",default='/static/img/default.png',max_length=255)
 
     class Meta:
         db_table='Goods'

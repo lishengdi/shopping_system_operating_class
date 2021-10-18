@@ -53,3 +53,12 @@ def modify(request):
             return HttpResponse("修改商品：发布失败！")
 
         return HttpResponseRedirect(reverse("myGoods.html"))
+
+def deleteGoods(request,goodsID):
+    try:
+        goods=Goods.objects.get(GoodsID__exact=goodsID)
+        goods.Status=0
+        goods.save()
+    except Exception as e:
+        print(e)
+    return HttpResponse("ok")

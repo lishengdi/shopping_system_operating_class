@@ -32,6 +32,10 @@ def create(request):
         try:
             for f in pics:
                 goodsPic.objects.create(goodsID=goods.GoodsID,img=f)
+
+            pics = goodsPic.objects.filter(goodsID__exact=goods.GoodsID)
+            goods.mainPic=pics[0].img.url
+            goods.save()
         except Exception as e:
             print("发布商品：保存图片失败！")
             print(e)

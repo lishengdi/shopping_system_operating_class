@@ -19,11 +19,25 @@ def add(request,goodsID):
         print("购物车：货物不存在")
         return HttpResponse("购物车：该货物不存在或已下架")
 
-    try:
-        ShoppingCar.objects.create(UID=UID,GoodsID=goodsID)
-    except Exception as e :
-        print(e)
-        return HttpResponse("购物车：添加失败")
+    if goods.Status!=1:
+        return HttpResponse("购物车：该货物不存在或已下架")
+
+    exit=ShoppingCar.objects.filter(Q(UID__exact=UID),Q(GoodsID__exact=goodsID))
+    if exit:
+        return HttpResponse("already exit")
+    else :
+        try:
+            ShoppingCar.objects.create(UID=UID, GoodsID=goodsID)
+            return HttpResponse("ShoppingCar_Added")
+        except Exception as e:
+            print(e)
+            return HttpResponse("购物车：添加失败")
+
+
+
+
+
+
 
 def delete(request,goodsID):
     UID = request.session.get('uid', '-1')
@@ -40,4 +54,4 @@ def delete(request,goodsID):
         target.delete()
     except Exception as e:
         print(e)
-        return HttpResponse("收藏：删除失败")
+        return HttpResponse("购物车：删除失败")

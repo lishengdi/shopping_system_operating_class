@@ -113,6 +113,14 @@ def showDetail(request,goodsID):
         print(e)
         print("查询是否收藏：查询失败")
 
+    try:
+        similarGoods=Goods.objects.filter(Category__exact=goods.Category)
+        if similarGoods.count()>=3:
+            similarGoods=similarGoods[:3]
+
+    except Exception as e:
+        print(e)
+
 
     if request.method == 'GET':
 
