@@ -48,17 +48,17 @@ def modify(request):
         print(e)
         return HttpResponse("个人信息修改：不存在该用户")
     if request.method == "GET":
-        return render(request, reverse('modifyPersonalInfo.html'), usr)
+        return render(request, 'modifyPersonalInfo.html', locals())
     if request.method == 'POST':
-        UName = request.POST.get('name')
-        UPhone = request.POST.get('phone')
-        DefaultADD = request.POST.get('add')
-        Passwd = request.POST.get('password')
+        UName = request.POST.get('username')
+        UPhone = request.POST.get('tel')
+        DefaultADD = request.POST.get('location')
+        Passwd = request.POST.get('passwd')
 
         if UName != usr.UName:
             check = User.objects.filter(UName__exact=UName)
             if check:
-                return (HttpResponse("该用户已存在，注册失败！"))
+                return (HttpResponse("修改用户名失败：该用户已存在！"))
         try:
             usr.UName = UName
             usr.Passwd = Passwd
@@ -68,3 +68,6 @@ def modify(request):
         except Exception as e:
             print(e)
             return HttpResponse("保存个人信息修改失败！")
+
+        result="修改个人信息"
+        return render(request, 'showResultSuccess.html', locals())

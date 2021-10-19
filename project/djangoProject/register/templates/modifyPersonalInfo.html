@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head lang="zh-CN">
     <meta charset="UTF-8">
-    <title>用户注册</title>
+    <title>修改个人信息</title>
     <!-- 引入css初始化文件 -->
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
     <!-- 专属的首页样式 -->
@@ -16,11 +16,11 @@
         	    <ul class="fl">
         		<li><img src="{% static 'img/logo.png' %}" style="width: 50px;height:50px;" alt="logo"></li>
                     <li class="space"></li>
-        			<li><span class="bigger">注册账号</span></li>
+        			<li><span class="bigger">修改个人信息</span></li>
         		</ul>
         		<ul class="fr">
-        			<li><span >我已注册，现在就</span></li>
-        			<li><a href="{% url 'login' %}">登录</a></li>
+        			<li><span >返回</span></li>
+        			<li><a href="{% url 'myCenter' %}">个人中心</a></li>
         		</ul>
         </div>
         <div >
@@ -29,34 +29,37 @@
         <div class="content">
         	<div class="mod-reg">
         		<div class="reg-content">
-                    <form action="{% url 'register'%}" method="post" onsubmit="return check()">
+                    <form action="{% url 'modifyPersonalInfo'%}" method="post" onsubmit="return check()">
         			<div class="name" > 用&ensp;户&ensp;名：
-                    <input type="text" id="username" name="username" placeholder="请输入4-20位用户名" class="">
+                    <input type="text" id="username" name="username" placeholder="请输入4-20位用户名" value="{{ usr.UName }}">
                         <text id="result" style="color: #dd4242">{{ result }}</text>
                     </div>
 
                     <div class="phone" > 手&ensp;机&ensp;号：
-                    <input type="text" id="phone" name="tel" placeholder="请输入有效手机号" class="">
+                    <input type="text" id="phone" name="tel" placeholder="请输入有效手机号" value="{{ usr.UPhone }}">
                     </div>
 
                     <div class="code" > 密&emsp;&emsp;码：
-                    <input type="password" id="password" name="passwd" placeholder="请设置6-20位密码" class="" >
+                    <input type="password" id="password" name="passwd" placeholder="请设置6-20位密码" value="{{usr.Passwd}}" >
                     </div>
 
                     <div class="recode" > 确认密码：
-                    <input type="password" id="password_2nd" placeholder="请再次输入密码" class="">
+                    <input type="password" id="password_2nd" placeholder="请再次输入密码" value="{{ usr.Passwd }}" >
                     </div>
 
                     <div class="nickname" >
                         默认收货地址：
                     </div>
-                        <textarea rows="5" cols="30" id="address" name="location" style="resize: none"></textarea>
+                        <textarea rows="5" cols="30" id="address" name="location" style="resize: none" >
+                            {{ usr.DefaultADD }}
+                        </textarea>
+
 
 
 
 
                     <div class="submit" >
-                    <input type="submit" id="" name="" value="注&nbsp&nbsp册" class="submitbutton">
+                    <input type="submit" id="" name="" value="保存修改" class="submitbutton">
                     </div>
             </form>
         		</div>

@@ -50,6 +50,7 @@
 	background:url({% static 'img/header_bg.jpg' %}) repeat-x;margin:0 auto; ">
 	<div class="top1">
         <a href="{% url 'logout' %}">{{username}}|退出登录</a>
+        <a href="{% url 'index' %}">返回首页</a>
                 {# 购物车链接       #}
 		<a href="{% url 'showMyShoppingCar' %}"><img src="{% static 'img/top1.jpg' %}">我的购物车</a>
 	</div>
