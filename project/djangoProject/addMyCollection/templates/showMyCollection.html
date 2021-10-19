@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html  lang="zh-CN">
+<script type="text/javascript">
+
+    function buy(id){
+        var httpRequest = new XMLHttpRequest();
+        var url="{% url 'buy' 11111111 %}"
+        window.location.href=url.replace(11111111, id)
+    }
+    function Delete(id){
+        var httpRequest = new XMLHttpRequest();
+        var url="{% url 'deleteMyCollection' 11111111 %}"
+        var newurl=url.replace(11111111,id)
+        httpRequest.open('GET', newurl, true);
+        httpRequest.send();
+
+        httpRequest.onreadystatechange = function (){
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                var res=httpRequest.responseText;
+                if(res==="Deleted"){
+                    alert("取消收藏：成功")
+                    location.reload();
+                }
+                else {
+                    alert(res)
+                }
+            }
+        }
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的收藏</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/pub.css' %}" type="text/css" />
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="head">
+        <ul class="fl">
+       <!-- logo here           -->
+            <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height: 50px"></li>
+            <li class="space"></li>
+            <li><span class="bigger">我的收藏 ❤️</span></li>
+        </ul>
+        <ul class="fr">
+            <li><span >返回</span></li>
+                {# 个人中心跳转     #}
+            <li><a href="#">个人中心</a></li>
+            <li><i class="shopC"></i></li>
+        </ul>
+    </div>
+
+    <div class="nav" style="background: url({% static 'css/nav.png' %}) no-repeat center top;"></div>
+
+
+
+    <div class="content">
+        <table id="cartTable">
+            <thead>
+            <tr>
+                <th class="gid">商品ID</th>
+                <th>商品名称</th>
+                <th>单价</th>
+                <th>卖家ID</th>
+                <th>选择</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+
+            {% for g in goodslist %}
+                    <tr>
+                        <td class="number">{{ g.GoodsID }}</td>
+                        <td class="goods"><img src="{{ g.mainPic }}" alt=""/><span>{{ g.GoodsName }}</span></td>
+                        <td class="price" style="color: red">{{ g.Price }}</td>
+                        <td class="sname">{{ g.UID }}</td>
+                        <td>
+                               <div class="options" style="width: 150px;margin-left: 32px">
+                                     <span class="option1"  >
+                                      <img src="{% static 'img/pay.png' %}" onclick="buy({{ g.GoodsID }})" style=" width:60px;height: 30px">
+                                     </span>
+
+                                    <span class="option2" style="margin-left: 10px">
+                                     <img src="{% static 'img/delete.png' %}"  onclick="Delete({{ g.GoodsID }})" style=" width:60px;height: 30px">
+                                          </span>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+            {% endfor %}
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+
+
+<div class="foot" id="foot" style="background-color:blue">
+    <!-- <label class="fl select-all"><input type="checkbox" class="check-all check"/>&nbsp;全选</label> -->
+    <!-- <a class="fl delete" id="deleteAll" href="javascript:;">删除</a> -->
+<!--    <div class="fr closing">提交订单</div>-->
+{#    <div class="fl total">合计：￥<span id="priceTotal">{{ sum }}</span></div>#}
+    <div class="fl selected" id="selected">共计商品
+        <span id="selectedTotal">{{ count }}</span>&nbsp;件
+        <!-- <span class="arrow up">︽</span>
+        <span class="arrow down">︾</span> -->
+    </div>
+    <div class="selected-view">
+        <div id="selectedViewList" class="clearfix">
+            <!--<div><img src="images/1.jpg"><span>取消选择</span></div>-->
+        </div>
+        <span class="arrow">◆<span>◆</span></span>
+    </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+

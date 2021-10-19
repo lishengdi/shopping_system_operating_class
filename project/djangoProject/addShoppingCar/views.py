@@ -55,3 +55,24 @@ def delete(request,goodsID):
     except Exception as e:
         print(e)
         return HttpResponse("购物车：删除失败")
+
+    return HttpResponse("ok")
+
+def show(request):
+    UID = request.session.get('uid', '-1')
+    if UID == '-1':
+        return HttpResponseRedirect(reverse("login"))  # 防止恶意链接
+    car=ShoppingCar.objects.filter(UID__exact=UID)
+    goodslist=[];sum=0;count=0
+    try:
+        for i in car:
+            cargo=Goods.objects.get(GoodsID__exact=i.GoodsID)
+            goodslist.append(cargo)
+            count+=1
+            sum=sum+cargo.Price
+
+    except Exception as e:
+        print(e)
+        return HttpResponse("我的购物车：查询错误")
+    if request.method=='GET':
+        return render(request,'showShoppingCar.html',locals())

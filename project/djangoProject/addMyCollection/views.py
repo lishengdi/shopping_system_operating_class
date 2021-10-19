@@ -49,3 +49,21 @@ def delete(request,goodsID):
         print(e)
         return HttpResponse("收藏：删除失败")
     return HttpResponse("Deleted")
+
+def show(request):
+    UID = request.session.get('uid', '-1')
+    if UID == '-1':
+        return HttpResponseRedirect(reverse("login"))  # 防止恶意链接
+    collections=UserCollect.objects.filter(UID__exact=UID)
+    goodslist = [];count=0
+    try:
+        for i in collections:
+            cargo=Goods.objects.get(GoodsID__exact=i.GoodsID)
+            goodslist.append(cargo)
+            count+=1
+
+    except Exception as e:
+        print(e)
+        return HttpResponse("我的收藏：查询错误")
+    if request.method=='GET':
+        return render(request,'showMyCollection.html',locals())

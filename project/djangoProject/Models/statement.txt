@@ -21,3 +21,18 @@ Order:
         商品详情页面跳转至购物车
         发布商品至个人中心
         发布后成功页面跳转至个人中心
+
+
+搜索支持商品名和商品号
+
+        str_1 = "123"
+str_2 = "Abc"
+str_3 = "123Abc"
+
+#用isdigit函数判断是否数字
+print(str_1.isdigit())
+Ture
+print(str_2.isdigit())
+False
+print(str_3.isdigit())
+False

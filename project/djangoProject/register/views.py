@@ -24,8 +24,18 @@ def sign_up(request):
             # usr = User.objects.get(UName__exact=UserName)
             # request.session['uid']=usr.UID
             # return render(request, 'index.html')
-            result = "登录"
-            return render(request,'showResultSuccess.html',locals())
+            result = "注册"
+            stored_id = request.session.get('uid', '-1')
+            if (stored_id == '-1'):
+                return render(request, 'showResultSuccess.html', locals())
+            else:
+                try:
+                    del request.session['uid']
+                    return HttpResponseRedirect(reverse('login'))
+                except Exception as e:
+                    print(e)
+                return render(request, 'showResultSuccess.html', locals())
+
 
 
 def modify(request):
