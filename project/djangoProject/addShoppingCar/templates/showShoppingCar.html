@@ -53,7 +53,7 @@
         <ul class="fr">
             <li><span >返回</span></li>
                 {# 个人中心跳转     #}
-            <li><a href="#">个人中心</a></li>
+            <li><a href="{% url 'myCenter' %}">个人中心</a></li>
             <li><i class="shopC"></i></li>
         </ul>
     </div>
@@ -75,23 +75,6 @@
             </tr>
             </thead>
             <tbody>
-{#            <tr>#}
-{#                <td class="number">1234567891</td>#}
-{#                <td class="goods"><img src="image/2.jpg" alt=""/><span>Dior迪奥口红哑光热卖烈焰蓝金唇膏滋润口红</span></td>#}
-{#                <td class="price" style="color: red">5999.88</td>#}
-{#                <td class="sname">小信息</td>#}
-{#                <td>#}
-{#                       <div class="options" style="width: 150px;margin-left: 30px">#}
-{#                             <span class="option1" id="001" onclick="chose(123123)">#}
-{#                              <img src="{% static 'img/pay.png' %}" style=" width:60px;height: 30px">#}
-{#                             </span>#}
-{##}
-{#                            <span class="option2" style="margin-left: 10px" onclick="chose2()">#}
-{#                             <img src="{% static 'img/delete.png' %}" style=" width:60px;height: 30px">#}
-{#                                  </span>#}
-{#                    </div>#}
-{#                </td>#}
-{#            </tr>#}
 
 
             {% for g in goodslist %}

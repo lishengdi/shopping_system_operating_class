@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>闲趣-轻量级二手交易平台</title>
+    <meta name="description" content="闲趣是一个社区化的二手闲置交易市场，不仅支持各种同城及线上的担保交易，更安全，同时还有最专业的放心购二手商家，让你轻松在这买卖二手闲置。"/>
+    <meta name="keywords" content="闲趣二手，闲趣二手闲置，闲趣二手市场，闲趣2手，淘二手，淘实惠，跳蚤市场"/>
+    <!-- 引入css初始化文件 -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <!-- 专属的首页样式 -->
+    <link rel="stylesheet" href="{% static 'css/loginindex.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/index_banner.css' %}" type="text/css">
+
+
+</head>
+<body>
+<!-- 快速导航栏 start -->
+<div class="shortcut">
+    <div class="w">
+        <ul class="fl city">
+            <li>
+                <i class="f10"></i>
+                <a href="#">杭州</a>
+            </li>
+        </ul>
+        <ul class="fr">
+            <li>
+                <text style="font-size: 12px;color: #999;">欢迎~ {{ usrname }}</text>
+<!--                <a href="#">您好，请登陆</a>-->
+                <a href="{% url 'logout' %}" class="f10">注销</a>
+            </li>
+
+            <li class="space"></li>
+            <li>
+                <a href="{% url 'myCenter' %}">个人中心</a>
+<!--                <i></i>-->
+            </li>
+            <li class="space"></li>
+            <li>
+                <a href="{% url 'showMyShoppingCar' %}">我的购物车</a>
+            </li>
+            <li class="space"></li>
+
+            <li>
+                <a href="{% url 'showMyCollection' %}">我的收藏</a>
+<!--                <i></i>-->
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!--搜索栏-->
+<div class="nav">
+    <!--logo标志-->
+    <div class="nav-left">
+        <img src="{% static 'img/logo.png' %}" style="width: 80px;height: 80px">
+    </div>
+    <!--搜索框-->
+    <div class="nav-right">
+        <div class="search" >
+            <!--搜索框内容-->
+            <div class="search-wp">
+                <i class="camer"></i>
+                <input type="text" placeholder="{{ keywords }}" id="search-input" style="color: #000000">
+                <span class="search-img" onclick="search()" id="search-btn">
+                    <img src="{% static 'img/search.png' %}" height="25" width="25" style="position: absolute;top: 5px;left: 510px">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 快速导航栏 end -->
+
+<!-- header 部分 start -->
+<header>
+    <img src="{% static 'img/header.jpg' %}" height="345" width="1440" alt="" style="position: absolute;top: -60px;left: 100px">
+<!--    <div class="user-card">-->
+<!--        <div class="unlogin">-->
+<!--            <img class="touxiang" src="image/1.jpg"  alt="">-->
+<!--            <p class="name">昵称：<span>小苹果喜欢吃肉</span></p>-->
+<!--            <p class="ID"><span>ID：</span>12345678901</p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+</header>
+<!-- header 部分 end -->
+
+<!-- 中间部分 start -->
+<div class="w middle">
+    <!-- 小导航部分 start -->
+    <div class="navitems">
+        <div class="item" onclick="select(1)"><p>数码</p></div>
+        <div class="item" onclick="select(3)"><p>电器</p></div>
+        <div class="item" onclick="select(5)"><p>美妆</p></div>
+        <div class="item" onclick="select(9)"><p>食品</p></div>
+        <div class="item" onclick="select(6)"><p>服饰</p></div>
+        <div class="item" onclick="select(7)"><p>娱乐</p></div>
+        <div class="item" onclick="select(2)"><p>交通代步</p></div>
+        <div class="item" onclick="select(4)"><p>图书教材</p></div>
+        <div class="item" onclick="select(8)"><p>虚拟用品</p></div>
+        <div class="item" onclick="select(10)"><p>日常用品</p></div>
+
+    </div>
+    <!-- 小导航部分 end -->
+
+    <!-- 商品部分 start-->
+    <div class="recom">
+        <ul>
+            {% if goodslist.count == 0 %}
+                <img src="{% static 'img/noGoods.png' %}">
+              {% endif %}
+
+            {% for cargo in goodslist %}
+
+            <li>
+                <a href="{% url 'showDetail' cargo.GoodsID %}">
+                    <div class="over"><img src="{{ cargo.mainPic }}"  alt="" style="height: 155px;width: 233px"></div>
+                    <h5>{{ cargo.GoodsName }}</h5>
+                </a>
+                <p><span>芝麻信用良好</span>  •  12个人想买</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<!-- 商品部分 end-->
+
+<!-- 中间部分 end -->
+
+<!-- 页面底部分 start -->
+<div class="footer">
+    <!-- 服务模块 -->
+    <div class="service">
+        <div class="w">
+            <ul>
+                <li>
+                    <h5></h5>
+                    <p>品类齐全，轻松购物</p>
+                </li>
+                <li>
+                    <h5></h5>
+                    <p>多仓直发，极速配送</p>
+                </li>
+                <li>
+                    <h5></h5>
+                    <p>正品发货，精致服务</p>
+                </li>
+                <li>
+                    <h5></h5>
+                    <p>天天低价，畅选无阻</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 帮助模块 -->
+    <div class="w help">
+        <div class="fl">
+            <dl>
+                <dt>购物指南</dt>
+                <dd><a href="#">购物流程</a></dd>
+                <dd><a href="#">会员介绍</a></dd>
+                <dd><a href="#">生活旅行</a></dd>
+                <dd><a href="#">常见问题</a></dd>
+                <dd><a href="#">大家电</a></dd>
+                <dd><a href="#">联系客服</a></dd>
+            </dl>
+            <dl>
+                <dt>购物指南</dt>
+                <dd><a href="#">购物流程</a></dd>
+                <dd><a href="#">会员介绍</a></dd>
+                <dd><a href="#">生活旅行</a></dd>
+                <dd><a href="#">常见问题</a></dd>
+                <dd><a href="#">大家电</a></dd>
+                <dd><a href="#">联系客服</a></dd>
+            </dl>
+            <dl>
+                <dt>购物指南</dt>
+                <dd><a href="#">购物流程</a></dd>
+                <dd><a href="#">会员介绍</a></dd>
+                <dd><a href="#">生活旅行</a></dd>
+                <dd><a href="#">常见问题</a></dd>
+                <dd><a href="#">大家电</a></dd>
+                <dd><a href="#">联系客服</a></dd>
+            </dl>
+            <dl>
+                <dt>购物指南</dt>
+                <dd><a href="#">购物流程</a></dd>
+                <dd><a href="#">会员介绍</a></dd>
+                <dd><a href="#">生活旅行</a></dd>
+                <dd><a href="#">常见问题</a></dd>
+                <dd><a href="#">大家电</a></dd>
+                <dd><a href="#">联系客服</a></dd>
+            </dl>
+            <dl>
+                <dt>购物指南</dt>
+                <dd><a href="#">购物流程</a></dd>
+                <dd><a href="#">会员介绍</a></dd>
+                <dd><a href="#">生活旅行</a></dd>
+                <dd><a href="#">常见问题</a></dd>
+                <dd><a href="#">大家电</a></dd>
+                <dd><a href="#">联系客服</a></dd>
+            </dl>
+            <dl>
+                <dt>购物指南</dt>
+                <dd><a href="#">购物流程</a></dd>
+                <dd><a href="#">会员介绍</a></dd>
+                <dd><a href="#">生活旅行</a></dd>
+                <dd><a href="#">常见问题</a></dd>
+                <dd><a href="#">大家电</a></dd>
+                <dd><a href="#">联系客服</a></dd>
+            </dl>
+        </div>
+        <!-- <div class="fr coverage">
+            <h5>自营覆盖区县</h5>
+            <p>已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+            <a href="#">查看详情 > </a>
+        </div> -->
+    </div>
+
+    <div class="w copyright">
+        <p>
+            <a href="#">浙江工商</a>
+            <span>|</span>
+            <a href="#">大学计算</a>
+            <span>|</span>
+            <a href="#">机与信息</a>
+            <span>|</span>
+            <a href="#">工程学院</a>
+            <span>|</span>
+            <a href="#">计算机科</a>
+            <span>|</span>
+            <a href="#">学与技术</a>
+            <span>|</span>
+            <a href="#">计科1902</a>
+            <span>|</span>
+            <a href="#">班李晟迪</a>
+
+        </p>
+        <div>
+            <p>闲趣网安备 11000002000088号<span>|</span>京ICP证070359号<span>|</span>互联网药品信息服务资格证编号(京)-经营性-2014-0008<span>|</span>新出发京零 字第大120007号</p>
+            <p>互联网出版许可证编号新出网证(京)字150号<span>|</span>出版物经营许可证<span>|</span>网络文化经营许可证京网文[2014]2148-348号<span>|</span>违法和不良信息举报电话：4006561155</p>
+            <p>Copyright © 2020 - 2021  xianqu.com 版权所有|消费者维权热线：4006067733经营证照
+                京东旗下网站：闲趣支付|闲趣云</p>
+        </div>
+        <p class="footer-ico">
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+        </p>
+    </div>
+</div>
+<!-- 页面底部分 end -->
+
+
+</body>
+</html>
+<script>
+    function select(type){
+        window.location.href="/xianqu/welcome?action=select&type=" + type
+    }
+    function search() {
+        keywords=document.getElementById("search-input").value
+        window.location.href = "/xianqu/welcome?action=search&keywords=" + keywords
+    }
+</script>

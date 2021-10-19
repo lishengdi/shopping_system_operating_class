@@ -52,7 +52,9 @@ INSTALLED_APPS = [
     'orderHandling',
     'modifyOrder',
     'modifyGoods',
-    'experiment'
+    'experiment',
+    'My',
+    'index'
 
 ]
 #中间件

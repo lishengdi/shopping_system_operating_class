@@ -51,7 +51,7 @@
 	<div class="top1">
         <a href="{% url 'logout' %}">{{username}}|退出登录</a>
                 {# 购物车链接       #}
-		<a href="#"><img src="{% static 'img/top1.jpg' %}">我的购物车</a>
+		<a href="{% url 'showMyShoppingCar' %}"><img src="{% static 'img/top1.jpg' %}">我的购物车</a>
 	</div>
 </div>
 
@@ -139,10 +139,12 @@
 
                 {# 相关商品推荐   #}
        {% for g in similarGoods %}
-
-            <img src="{{ g.mainPic }}" width="130" height="130">
+        <a href="{% url 'showDetail' g.GoodsID %}">
+         <img src="{{ g.mainPic }}" width="130" height="130">
            <p>{{ g.GoodsName }}</p>
             <p>￥{{ g.Price }}元</p>
+        </a>
+
        {% endfor %}
 
 

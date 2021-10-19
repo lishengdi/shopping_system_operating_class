@@ -6,7 +6,7 @@
 
     function buy(id){
         var httpRequest = new XMLHttpRequest();
-        var url="{% url 'buy' 11111111 %}"
+        var url="{% url 'showDetail' 11111111 %}"
         window.location.href=url.replace(11111111, id)
     }
     function Delete(id){
@@ -52,7 +52,7 @@
         <ul class="fr">
             <li><span >返回</span></li>
                 {# 个人中心跳转     #}
-            <li><a href="#">个人中心</a></li>
+            <li><a href="{% url 'myCenter' %}">个人中心</a></li>
             <li><i class="shopC"></i></li>
         </ul>
     </div>
@@ -86,7 +86,7 @@
                         <td>
                                <div class="options" style="width: 150px;margin-left: 32px">
                                      <span class="option1"  >
-                                      <img src="{% static 'img/pay.png' %}" onclick="buy({{ g.GoodsID }})" style=" width:60px;height: 30px">
+                                      <img src="{% static 'img/chakan.png' %}" onclick="buy({{ g.GoodsID }})" style=" width:60px;height: 30px">
                                      </span>
 
                                     <span class="option2" style="margin-left: 10px">

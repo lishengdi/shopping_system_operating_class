@@ -12,7 +12,7 @@ def check_in(request):
             return render(request,'login.html',locals())
         else:
             # return render(request,'index.html')
-            return HttpResponse("index")
+            return render(request,'index.html')
 
     if request.method=='POST':
         uname=request.POST.get('username','')
@@ -26,7 +26,7 @@ def check_in(request):
             return render(request,"login.html", locals())
         if (Passwd == usr.Passwd):
             request.session['uid'] = usr.UID
-            return HttpResponse("index")
+            return render(request,'index.html')
             # return render(request,"showResultSuccess.html",locals())
         else:
             result = "用户名或密码错误"

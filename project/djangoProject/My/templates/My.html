@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head lang="en">
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static '/css/order.css' %}" type="text/css" />
+{#    <link rel="stylesheet" type="text/css" href="../css/public.css"/>#}
+{#    <link rel="stylesheet" type="text/css" href="../css/myorder.css" />#}
+</head>
+<body>
+
+<div class="head">
+    <ul class="fl">
+        <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height: 50px"></li>
+        <li class="space"></li>
+        <li><span class="bigger">个人中心</span></li>
+    </ul>
+    <ul class="fr">
+        <li><span >返回</span></li>
+        <li><a href="{% url 'index' %}">首页</a></li>
+    </ul>
+</div>
+
+
+
+<div class="Bott">
+
+    <div style="display: flex;justify-content: space-evenly;align-items: center; height:200px;width: 1000px;
+   margin-left: auto;margin-right: auto;margin-top: 50px">
+
+         <div><a href="{% url 'showMyShoppingCar' %}"><img src="{% static 'img/gouwuche.png' %}" height="150" width="100"></a></div>
+        <div><a href="#" ><img src="{% static 'img/myorder.png' %}" height="150" width="100" ></a></div>
+        <div><a href="{% url 'showMyCollection' %}"><img src="{% static 'img/shoucang.png' %}" height="150" width="100"></a></div>
+        <div><a href="#"><img src="{% static 'img/mypost.png' %}" height="150" width="100" > </a></div>
+        <div><a href="#"><img src="{% static 'img/modifyINFO.png' %}" height="140" width="95"> </a></div>
+        <div><a href="{% url 'createGoods' %}"><img src="{% static 'img/fabu.png' %}" height="135" width="90" > </a></div>
+</div>
+
+</div>
+
+
+<div class="footer" style="position: absolute;left:380px;top: 500px">
+    <div class="link">
+        <p>
+            <a href="#">关于闲趣</a>
+            <span>|</span>
+            <a href="#">常见问题</a>
+            <span>|</span>
+            <a href="#">违规投诉</a>
+            <span>|</span>
+            <a href="#">开放平台</a>
+            <span>|</span>
+            <a href="#">用户协议</a>
+            <span>|</span>
+            <a href="#">客服电话：</a>
+            <a class="c" href="#">400-9216-666</a>
+        </p>
+    </div>
+</div>
+
+
+
+</body>
+</html>
