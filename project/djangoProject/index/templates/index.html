@@ -112,19 +112,56 @@
                 <img src="{% static 'img/noGoods.png' %}">
               {% endif %}
 
-            {% for cargo in goodslist %}
+            {% for p in c_page %}
 
             <li>
-                <a href="{% url 'showDetail' cargo.GoodsID %}">
-                    <div class="over"><img src="{{ cargo.mainPic }}"  alt="" style="height: 155px;width: 233px"></div>
-                    <h5>{{ cargo.GoodsName }}</h5>
+                <a href="{% url 'showDetail' p.GoodsID %}">
+                    <div class="over"><img src="{{ p.mainPic }}"  alt="" style="height: 155px;width: 233px"></div>
+                    <h5>{{ p.GoodsName }}</h5>
                 </a>
                 <p><span>芝麻信用良好</span>  •  12个人想买</p>
             </li>
             {% endfor %}
         </ul>
     </div>
+
+
+
 </div>
+<div class="jogger" style="padding-left: 300px">
+    {% if c_page.has_previous %}
+    <a  href="?page={{ c_page.previous_page_number }}">&lt; </a>
+        {% else %}
+     <span class="disabled">&lt; </span>
+    {% endif %}
+
+
+{#    <a  href="?page=2">2</a>#}
+{#    <a  href="?page=3">3</a>#}
+{#    <a  href="?page=4">4</a>#}
+{#    <a  href="?page=5">5</a>#}
+{#    <a  href="?page=6">6</a>#}
+{#    <a  href="?page=7">7</a>...#}
+{#    <a  href="?page=199">199</a>#}
+{#    <a  href="?page=200">200</a>#}
+
+{% for p_num in paginator.page_range %}
+    {% if p_num == c_page.number %}
+        <span class="current">{{ p_num }}</span>
+    {% else %}
+        <a  href="?page={{ p_num }}">{{ p_num }}</a>
+    {% endif %}
+{% endfor %}
+
+
+{% if c_page.has_next %}
+    <a  href="?page={{ c_page.next_page_number }}">&gt; </a>
+ {% else %}
+    <span class="disabled">&gt; </span>
+{% endif %}
+
+</div>
+
 <!-- 商品部分 end-->
 
 <!-- 中间部分 end -->
@@ -213,11 +250,7 @@
                 <dd><a href="#">联系客服</a></dd>
             </dl>
         </div>
-        <!-- <div class="fr coverage">
-            <h5>自营覆盖区县</h5>
-            <p>已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
-            <a href="#">查看详情 > </a>
-        </div> -->
+
     </div>
 
     <div class="w copyright">

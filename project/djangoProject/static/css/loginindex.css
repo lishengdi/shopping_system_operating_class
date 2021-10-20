@@ -312,10 +312,38 @@ header .user-card .unlogin .ID {
 	background: url(./ico_footer.png) no-repeat -103px -183px;
 }
 .footer-ico a:nth-child(5) {
-	background: url(./ico_footer.png) no-repeat 0px -216x;
+	/*background: url(./ico_footer.png) no-repeat 0px -216x;*/
 }
 .footer-ico a:nth-child(6) {
 	background: url(./ico_footer.png) no-repeat -103px -216px;
 }
 
 
+/* www.divcss5.com公共分页CSS代码 */
+
+div.jogger {
+padding-right: 2px !important; padding-left: 2px !important; padding-bottom: 2px !important; margin: 7px !important;
+ padding-top: 2px !important; font-family: "lucida sans unicode",
+ "lucida grande", lucidagrande, "lucida sans", geneva, verdana, sans-serif !important; width: 500px;margin-left: 760px!important;
+
+}
+div.jogger a {
+padding-right: 0.64em !important; padding-left: 0.64em !important; padding-bottom: 0.43em !important;
+ margin: 2px !important; color: #fff !important; padding-top: 0.5em !important;
+background-color: #ee4e4e !important; text-decoration: none !important;
+}
+div.jogger a:hover {
+padding-right: 0.64em !important; padding-left: 0.64em !important; padding-bottom: 0.43em !important;
+ margin: 2px !important; color: #fff !important; padding-top: 0.5em !important; background-color: #de1818 !important;
+}
+div.jogger a:active {
+padding-right: 0.64em !important; padding-left: 0.64em !important; padding-bottom: 0.43em !important;
+ margin: 2px !important; color: #fff !important; padding-top: 0.5em !important; background-color: #de1818 !important
+}
+div.jogger span.current {
+padding-right: 0.64em !important; padding-left: 0.64em !important; padding-bottom: 0.43em !important;
+ margin: 2px !important; color: #6d643c !important; padding-top: 0.5em !important; background-color: #f6efcc !important;
+}
+div.jogger span.disabled {
+display: none !important;
+}

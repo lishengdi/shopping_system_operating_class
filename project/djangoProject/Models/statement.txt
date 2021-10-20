@@ -37,3 +37,7 @@ print(str_2.isdigit())
 False
 print(str_3.isdigit())
 False
+
+nor 107 bg:trans
+loginindex 27
+color#999 size 12px

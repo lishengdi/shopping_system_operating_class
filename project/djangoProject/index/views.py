@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -24,19 +25,27 @@ def index(request):
         print(e)
         return HttpResponse("非法用户")
 
+    page_num=request.GET.get('page',1)
+    print(page_num)
 
     action = request.GET.get('action', '-1')
     if action=='-1':      #默认展示所有商品
         try:
             goodslist=Goods.objects.filter(Status__exact=1)
+            paginator = Paginator(goodslist,15)
+            c_page=paginator.page(int(page_num))
+
             return render(request,'index.html',locals())
         except Exception as e:
             print(e)
 
     elif action=='search':
+
         try:
             keywords=request.GET.get('keywords')
             goodslist=Goods.objects.filter(Q(GoodsName__contains=keywords),Q(Status__exact=1))
+            paginator = Paginator(goodslist, 15)
+            c_page = paginator.page(int(page_num))
             return render(request,'index.html',locals())
         except Exception as e:
             print(e)
@@ -45,6 +54,8 @@ def index(request):
         try:
             type=request.GET.get('type')
             goodslist=Goods.objects.filter(Q(Category__exact=type),Q(Status__exact=1))
+            paginator = Paginator(goodslist, 15)
+            c_page = paginator.page(int(page_num))
             return render(request, 'index.html', locals())
         except Exception as e:
             print(e)
