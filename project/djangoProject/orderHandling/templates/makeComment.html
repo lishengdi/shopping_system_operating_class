@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>收货评价</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}" type="text/css" />
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+
+<div class="wrapper">
+        <div class="head">
+                <ul class="fl">
+                    <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height:50px;" alt="logo"></li>
+                    <li class="space"></li>
+                    <li><span class="bigger">收货评价</span></li>
+                </ul>
+                <ul class="fr">
+                    <li><span >返回</span></li>
+                    <li><a href="#">我的订单</a></li>
+                    <li><i class="shopC"></i></li>
+                </ul>
+        </div>
+
+        <div class="nav"></div>
+
+
+
+        <div class="content">
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th class="gid">商品ID</th>
+                        <th>商品名称</th>
+                        <th>购买时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="number">{{ target.GoodsID }}</td>
+                        <td class="goods">
+                            {% if nopic == "yes"%}
+                                <img src="{% static 'img/default.png' %}" alt=""/>
+                           {% else %}
+                             <img src="{{goods.mainPic}}" alt=""/>
+                            {% endif %}
+                            <span>{{ goods.GoodsName }}</span></td>
+                        <td class="price" style="color: red">{{ target.Time}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+</div>
+
+
+
+<div class="formArea">
+    <form action="{% url 'makeComment'%}?orderID={{ target.OrderID }}" method="post" id="form">
+
+
+        <div class="input_field" style="margin-top: 90px">
+            <text class="input_field_text" >订单评价</text>
+        </div>
+
+        <div>
+            <textarea rows="5" cols="35" id="cadd" name="comment" style="resize: none;position: absolute;left: 650px;top:350px"></textarea>
+
+        </div>
+    </form>
+
+</div>
+
+
+<button  class="setting-save" id="submit" onclick="post()" style="margin-top: -30px;margin-left:670px;font-size:20px;background-color:#3498db;
+
+width: 250px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    padding: 10px 10px;">确认收货</button>
+
+<script>
+    form=document.getElementById("form")
+    function post(){
+        form.submit()
+    }
+
+</script>
+
+
+        <div class="footer">
+            <div class="link">
+              <p>
+                <a href="#">关于闲趣</a>
+                <span>|</span>
+                <a href="#">常见问题</a>
+                <span>|</span>
+                <a href="#">违规投诉</a>
+                <span>|</span>
+                <a href="#">开放平台</a>
+                <span>|</span>
+                <a href="#">用户协议</a>
+                <span>|</span>
+                <a href="#">客服电话：</a>
+                <a class="c" href="#">400-9216-666</a>
+             </p>
+            </div>
+        </div>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+

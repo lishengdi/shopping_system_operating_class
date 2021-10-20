@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>订单发货</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}" type="text/css" />
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+
+<div class="wrapper">
+        <div class="head">
+                <ul class="fl">
+                    <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height:50px;" alt="logo"></li>
+                    <li class="space"></li>
+                    <li><span class="bigger">订单发货</span></li>
+                </ul>
+                <ul class="fr">
+                    <li><span >返回</span></li>
+                    <li><a href="{% url 'myPost' %}">我的发布</a></li>
+                    <li><i class="shopC"></i></li>
+                </ul>
+        </div>
+
+        <div class="nav"></div>
+
+
+
+        <div class="content">
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th class="gid">收货人</th>
+                        <th>商品名称</th>
+                        <th>收货地址</th>
+                        <th>收货方地址</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="number">{{ target.GuestName }}</td>
+                        <td class="goods">
+                            {% if nopic == "yes"%}
+                                <img src="{% static 'img/default.png' %}" alt=""/>
+                           {% else %}
+                             <img src="{{ goods.mainPic }}" alt=""/>
+                            {% endif %}
+                            <span>{{ goods.GoodsName }}</span></td>
+                        <td class="price" style="color: red">{{target.GuestPhone }}</td>
+                        <td class="goods">{{ target.GuestADD }}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+</div>
+
+
+
+<div class="formArea">
+    <form action="{% url 'makeDeliver'%}?orderID={{ target.OrderID }}" method="post" id="form">
+        <div class="input_field">
+            <text class="input_field_text">快递单号</text>
+            <input type="text" class="input_field_area" name="expressnumber" id="cname" value="">
+
+        </div>
+
+
+        <div class="input_field">
+            <text class="input_field_text" style="position: absolute;left: 530px;top:410px" >发件人地址</text>
+        </div>
+
+        <div>
+            <textarea rows="5" cols="35" id="cadd" name="departadd" style="resize: none;position: absolute;left: 660px;top:380px"></textarea>
+
+        </div>
+    </form>
+
+</div>
+
+
+<button  class="setting-save" id="submit" onclick="post()" style="margin-top: 20px;margin-left:670px;font-size:20px;background-color:#3498db;
+
+width: 250px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    padding: 10px 10px;">确认发货</button>
+
+<script>
+    form=document.getElementById("form")
+    function post(){
+        form.submit()
+    }
+
+</script>
+
+
+        <div class="footer">
+            <div class="link">
+              <p>
+                <a href="#">关于闲趣</a>
+                <span>|</span>
+                <a href="#">常见问题</a>
+                <span>|</span>
+                <a href="#">违规投诉</a>
+                <span>|</span>
+                <a href="#">开放平台</a>
+                <span>|</span>
+                <a href="#">用户协议</a>
+                <span>|</span>
+                <a href="#">客服电话：</a>
+                <a class="c" href="#">400-9216-666</a>
+             </p>
+            </div>
+        </div>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+

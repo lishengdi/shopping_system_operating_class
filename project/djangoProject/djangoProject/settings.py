@@ -54,7 +54,9 @@ INSTALLED_APPS = [
     'modifyGoods',
     'experiment',
     'My',
-    'index'
+    'index',
+    'myOrder',
+    'myPost'
 
 ]
 #中间件

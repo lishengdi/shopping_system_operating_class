@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>订单修改</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}" type="text/css" />
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+
+<div class="wrapper">
+        <div class="head">
+                <ul class="fl">
+                    <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height:50px;" alt="logo"></li>
+                    <li class="space"></li>
+                    <li><span class="bigger">修改订单</span></li>
+                </ul>
+                <ul class="fr">
+                    <li><span >返回</span></li>
+                    <li><a href="{% url 'myOrder' %}">我的订单</a></li>
+                    <li><i class="shopC"></i></li>
+                </ul>
+        </div>
+
+        <div class="nav"></div>
+
+
+
+        <div class="content">
+            <table id="cartTable">
+                <thead>
+                    <tr>
+                        <th class="gid">商品ID</th>
+                        <th>商品名称</th>
+                        <th>购买时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="number">{{ target.GoodsID }}</td>
+                        <td class="goods">
+                            {% if nopic == "yes"%}
+                                <img src="{% static 'img/default.png' %}" alt=""/>
+                           {% else %}
+                             <img src="{{ goods.mainPic }}" alt=""/>
+                            {% endif %}
+                            <span>{{ goods.GoodsName }}</span></td>
+                        <td class="price" style="color: red">{{ target.Time}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+</div>
+
+
+
+<div class="formArea">
+    <form action="{% url 'modifyOrder'%}?orderID={{ target.OrderID }}" method="post" id="form">
+        <div class="input_field">
+            <text class="input_field_text">收件人姓名</text>
+            <input type="text" class="input_field_area" name="guestname" id="cname" value="{{target.GuestName}}">
+
+        </div>
+
+        <div class="input_field">
+            <text class="input_field_text">收件人电话</text>
+            <input type="text" class="input_field_area" name="guestphone" id="cphone" value="{{ target.GuestPhone }}">
+        </div>
+
+        <div class="input_field">
+            <text class="input_field_text" >收件人地址</text>
+        </div>
+
+        <div>
+            <textarea rows="5" cols="35" id="cadd" name="guestadd" style="resize: none;position: absolute;left: 680px;top:430px">{{ target.GuestADD }}</textarea>
+
+        </div>
+    </form>
+
+</div>
+
+
+<button  class="setting-save" id="submit" onclick="post()" style="margin-top: 20px;margin-left:700px;font-size:20px;background-color:#3498db;
+
+width: 250px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    padding: 10px 10px;">确认修改</button>
+
+<script>
+    form=document.getElementById("form")
+    function post(){
+        form.submit()
+    }
+
+</script>
+
+
+        <div class="footer">
+            <div class="link">
+              <p>
+                <a href="#">关于闲趣</a>
+                <span>|</span>
+                <a href="#">常见问题</a>
+                <span>|</span>
+                <a href="#">违规投诉</a>
+                <span>|</span>
+                <a href="#">开放平台</a>
+                <span>|</span>
+                <a href="#">用户协议</a>
+                <span>|</span>
+                <a href="#">客服电话：</a>
+                <a class="c" href="#">400-9216-666</a>
+             </p>
+            </div>
+        </div>
+
+
+
+
+</body>
+</html>
+
+<script>
+    var btn=document.getElementById("submit");
+    var form=document.getElementById("form")
+    btn.onclick=function (){
+       if(check_purchase()) {
+           form.submit()
+       }
+    }
+
+
+
+    function check_purchase(){
+        var cname=document.getElementById("cname");
+        var cphone=document.getElementById("cphone");
+          var cadd=document.getElementById("cadd");
+
+          var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+        if(!myreg.test(cphone.value)){
+             alert("手机号码格式错误：请输入有效手机号码")
+            return false
+        }
+
+          if(cname.value!==""&&cphone.value!==""&&cadd.value!==""){
+              return true
+          }else {
+              alert("收件人信息不可为空，请重新填写")
+              return false
+          }
+    }
+
+</script>
+
+
+
+

@@ -92,7 +92,6 @@ table {
     background: #e2f2ff;
     border-top: 3px solid #a7cbff;
     height: 30px;
-    width: 120px;
 }
 th, td {
     border: 1px solid #CADEFF;
@@ -112,9 +111,7 @@ tbody tr:hover {
 /*.checkbox {
     width: 60px;
 }*/
-.goods {
-    width: 300px;
-}
+
 .number{
     width: 120px;
 }

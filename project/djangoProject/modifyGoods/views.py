@@ -24,6 +24,9 @@ def modify(request):
 
     if request.method=='GET':
 
+        if target.Status!=1:
+            return HttpResponse("修改商品：该商品目前状态不接受修改")
+
         if target.UID==UID:
             return render(request,'modifyGoods.html',locals())
         else:
@@ -31,6 +34,10 @@ def modify(request):
 
 
     if request.method=='POST':
+
+        if target.Status!=1:
+            return HttpResponse("修改商品：该商品目前状态不接受修改")
+
         GoodsName = request.POST.get('goodsname')
         Category = request.POST.get('category')
         OriginalPrice = request.POST.get('originalprice')
@@ -77,12 +84,19 @@ def deleteGoods(request):
 
     GID = request.GET.get('goodsID', '-1')
     if GID == '-1':
-        return HttpResponse("修改商品：商品ID传递错误，请求非法")
+        return HttpResponse("删除商品：商品ID传递错误，请求非法")
 
-    try:
-        goods=Goods.objects.get(GoodsID__exact=GID)
-        goods.Status=0
-        goods.save()
-    except Exception as e:
-        print(e)
-    return HttpResponse("ok")
+    goods=Goods.objects.get(GoodsID__exact=GID)
+    pics=goodsPic.objects.filter(goodsID__exact=goods.GoodsID)
+
+    if goods.Status!=1:
+        return HttpResponse("当前状态无法删除该商品")
+    if goods.UID == UID:
+        try:
+            pics.delete()
+            goods.delete()
+        except Exception as e:
+            print(e)
+        return HttpResponse("ok")
+    else:
+        return HttpResponse("您不是该商品发布者")

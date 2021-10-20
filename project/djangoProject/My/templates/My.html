@@ -31,9 +31,9 @@
    margin-left: auto;margin-right: auto;margin-top: 50px">
 
          <div><a href="{% url 'showMyShoppingCar' %}"><img src="{% static 'img/gouwuche.png' %}" height="150" width="100"></a></div>
-        <div><a href="#" ><img src="{% static 'img/myorder.png' %}" height="150" width="100" ></a></div>
+        <div><a href="{% url 'myOrder' %}" ><img src="{% static 'img/myorder.png' %}" height="150" width="100" ></a></div>
         <div><a href="{% url 'showMyCollection' %}"><img src="{% static 'img/shoucang.png' %}" height="150" width="100"></a></div>
-        <div><a href="#"><img src="{% static 'img/mypost.png' %}" height="150" width="100" > </a></div>
+        <div><a href="{% url 'myPost' %}"><img src="{% static 'img/mypost.png' %}" height="150" width="100" > </a></div>
         <div><a href="{% url 'modifyPersonalInfo' %}"><img src="{% static 'img/modifyINFO.png' %}" height="140" width="95"> </a></div>
         <div><a href="{% url 'createGoods' %}"><img src="{% static 'img/fabu.png' %}" height="135" width="90" > </a></div>
 </div>

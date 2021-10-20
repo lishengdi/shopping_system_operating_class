@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html  lang="zh-CN">
+<script type="text/javascript">
+
+    function edit(id){
+        window.location.href="{% url 'modifyOrder' %}" + "?orderID=" + id
+    }
+    function Cancel(id){
+        var httpRequest = new XMLHttpRequest();
+        var url="{% url 'orderCancel'  %}"+"?orderID="+id
+        httpRequest.open('GET', url, true);
+        httpRequest.send();
+        httpRequest.onreadystatechange = function (){
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                var res=httpRequest.responseText;
+                if(res==="ok"){
+                    alert("订单：取消成功")
+                    location.reload();
+                }
+                else {
+                    alert(res)
+                }
+            }
+        }
+    }
+
+    function Comment(id){
+        window.location.href="{% url 'makeComment' %}" + "?orderID=" + id
+    }
+
+
+
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <!-- <link rel="stylesheet" href="css/style.css"/> -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/pub.css' %}" type="text/css" />
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="head">
+        <ul class="fl">
+       <!-- logo here           -->
+            <li><img src="{% static 'img/logo.png' %}" style="width: 50px;height: 50px"></li>
+            <li class="space"></li>
+            <li><span class="bigger">我的订单</span></li>
+        </ul>
+        <ul class="fr">
+            <li><span >返回</span></li>
+                {# 个人中心跳转     #}
+            <li><a href="{% url 'myCenter' %}">个人中心</a></li>
+            <li><i class="shopC"></i></li>
+        </ul>
+    </div>
+
+    <div class="nav" style="background: url({% static 'img/nav.png' %}) no-repeat center top;"></div>
+
+
+
+    <div class="content">
+
+<text style="font-size: 30px;font-weight: bold;margin-top: 40px" >待发货</text>
+    <table id="cartTable2" style="margin-top: 20px;margin-bottom: 40px">
+            <thead>
+            <tr>
+                <th style="width: 120px">商家ID</th>
+                <th style="width: 250px">商品名</th>
+                <th style="width: 200px">订单时间</th>
+                <th style="width: 160px">选择</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            {% for key,value in a.items %}
+                    <tr>
+                        <td >{{ key.SID}}</td>
+                        <td ><img src="{{value.mainPic}}" alt=""/><span>{{ value.GoodsName }}</span></td>
+                        <td  >{{ key.Time }}</td>
+                        <td>
+                               <div class="options" >
+                                     <span class="option1"  >
+                                      <img src="{% static 'img/cancel.png' %}" onclick="Cancel({{ key.OrderID }})" style=" width:60px;height: 30px;margin-left: 35px">
+                                     </span>
+
+                                   <span class="option2" >
+                                     <img src="{% static 'img/edit.png' %}"  onclick="edit({{ key.OrderID }})" style=" width:60px;height: 30px;margin-top: -2px">
+                                          </span>
+
+
+                            </div>
+                        </td>
+                    </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    <text style="font-size: 30px;font-weight: bold;margin-top: 40px" >待收货</text>
+    <table id="cartTable3" style="margin-bottom: 40px;margin-top: 20px">
+            <thead>
+            <tr>
+                <th>商品名</th>
+                <th>货运单号</th>
+                <th>发货地</th>
+                <th>选择</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for key,value in b.items %}
+                    <tr>
+                        <td style="width: 220px" ><img src="{{value.mainPic}}" alt=""/><span>{{ value.GoodsName }}</span></td>
+                        <td class="number">{{ key.ExpressNumber }}</td>
+                        <td class="price" style="width: 220px">{{ key.DepartADD }}</td>
+                        <td style="width: 80px">
+                                   <div class="options" style="width: 150px;margin-left: 32px">
+                                         <span class="option1"  >
+                                          <img src="{% static 'img/receive.png' %}" onclick="Comment({{ key.OrderID }})" style=" width:80px;height: 40px;margin-left: 40px">
+                                         </span>
+
+                                </div>
+                            </td>
+                    </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+<text style="font-size: 30px;font-weight: bold;margin-top: 40px" >已完成</text>
+
+        <table id="cartTable4" style="margin-top: 20px;margin-bottom: 40px">
+            <thead>
+            <tr>
+                <th style="width: 150px">商家ID</th>
+                <th style="width: 300px">商品名</th>
+                <th>订单时间</th>
+                <th style="width: 250px">评价</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            {% for key,value in c.items %}
+                    <tr>
+                        <td>{{ key.SID }}</td>
+                        <td ><img src="{{value.mainPic}}" alt=""/><span> {{ value.GoodsName }}</span></td>
+                        <td >{{ key.Time }}</td>
+                        <td >
+                            {{ key.Comment }}
+                        </td>
+                    </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
