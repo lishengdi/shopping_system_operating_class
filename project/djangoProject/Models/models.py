@@ -78,7 +78,7 @@ class UserCollect(models.Model):
 
 class goodsPic(models.Model):
     goodsID=models.IntegerField("商品ID")
-    img=models.ImageField(upload_to='goodsIMG',default='/static/img/default.png')
+    img=models.ImageField("图片地址",upload_to='goodsIMG',default='/static/img/default.png')
 
     class Meta:
         db_table='goodsPIC'
