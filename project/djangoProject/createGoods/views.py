@@ -28,9 +28,9 @@ def create(request):
         except Exception as e:
             print(e)
             return HttpResponse("发布闲置：发布失败！")
-        pics=request.FILES.getlist('img')
+        picsUPload=request.FILES.getlist('img')
         try:
-            for f in pics:
+            for f in picsUPload:
                 goodsPic.objects.create(goodsID=goods.GoodsID,img=f)
 
             pics = goodsPic.objects.filter(goodsID__exact=goods.GoodsID)

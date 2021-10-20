@@ -28,7 +28,7 @@ def index(request):
     action = request.GET.get('action', '-1')
     if action=='-1':      #默认展示所有商品
         try:
-            goodslist=Goods.objects.all()
+            goodslist=Goods.objects.filter(Status__exact=1)
             return render(request,'index.html',locals())
         except Exception as e:
             print(e)
@@ -36,7 +36,7 @@ def index(request):
     elif action=='search':
         try:
             keywords=request.GET.get('keywords')
-            goodslist=Goods.objects.filter(GoodsName__contains=keywords)
+            goodslist=Goods.objects.filter(Q(GoodsName__contains=keywords),Q(Status__exact=1))
             return render(request,'index.html',locals())
         except Exception as e:
             print(e)
@@ -44,7 +44,7 @@ def index(request):
     elif action=='select':
         try:
             type=request.GET.get('type')
-            goodslist=Goods.objects.filter(Category__exact=type)
+            goodslist=Goods.objects.filter(Q(Category__exact=type),Q(Status__exact=1))
             return render(request, 'index.html', locals())
         except Exception as e:
             print(e)

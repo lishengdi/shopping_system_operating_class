@@ -140,12 +140,13 @@
 
                 {# 相关商品推荐   #}
        {% for g in similarGoods %}
-        <a href="{% url 'showDetail' g.GoodsID %}">
-         <img src="{{ g.mainPic }}" width="130" height="130">
-           <p>{{ g.GoodsName }}</p>
-            <p>￥{{ g.Price }}元</p>
-        </a>
-
+           {% if g.GoodsID != goods.GoodsID %}
+            <a href="{% url 'showDetail' g.GoodsID %}">
+             <img src="{{ g.mainPic }}" width="130" height="130">
+               <p>{{ g.GoodsName }}</p>
+                <p>￥{{ g.Price }}元</p>
+            </a>
+            {% endif %}
        {% endfor %}
 
 

@@ -102,7 +102,7 @@ def showDetail(request,goodsID):
         if goods.Status == 1:
             return render(request, 'order.html', locals())
         else:
-            return HttpResponse("购买失败：该商品已下架或已卖出")
+            return HttpResponse("商品详情：该商品已下架或已卖出")
     try:
         star=UserCollect.objects.filter(Q(UID__exact=UID),Q(GoodsID__exact=goodsID))
         if star:
@@ -114,9 +114,9 @@ def showDetail(request,goodsID):
         print("查询是否收藏：查询失败")
 
     try:
-        similarGoods=Goods.objects.filter(Category__exact=goods.Category)
+        similarGoods=Goods.objects.filter(Q(Category__exact=goods.Category),Q(Status__exact=1))
         if similarGoods.count()>=3:
-            similarGoods=similarGoods[:3]
+            similarGoods=similarGoods[:4]
 
     except Exception as e:
         print(e)
