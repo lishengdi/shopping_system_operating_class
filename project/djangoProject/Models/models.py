@@ -11,6 +11,8 @@ class User(models.Model):
 
     class Meta:
         db_table='User'
+        verbose_name = '用户'
+        verbose_name_plural = '用户'
 
     def __str__(self):
         return 'ID:%s Name:%s Phone:%s Passwd:%s Address:%s'%(self.UID,self.UName,self.UPhone,self.Passwd,self.DefaultADD)
@@ -28,6 +30,8 @@ class Goods(models.Model):
 
     class Meta:
         db_table='Goods'
+        verbose_name = '商品'
+        verbose_name_plural = '商品'
 
     def __str__(self):
         return 'GoodsID:%s GoodsName:%s Category:%s Status:%s UID:%s'%(self.GoodsID,self.GoodsName,self.Category,self.Status,self.UID)
@@ -35,6 +39,8 @@ class Goods(models.Model):
 class Order(models.Model):
     class Meta:
         db_table='Order'
+        verbose_name = '用户订单'
+        verbose_name_plural = '用户订单'
 
     OrderID=models.AutoField("订单号",primary_key=True)
     GoodsID=models.IntegerField("商品号")
@@ -62,6 +68,8 @@ class ShoppingCar(models.Model):
 
     class Meta:
         db_table='ShoppingCar'
+        verbose_name = '用户购物车'
+        verbose_name_plural = '用户购物车'
 
     def __str__(self):
         return 'UID:%s GoodsID:%s Time:%s'%(self.UID,self.GoodsID,self.Time)
@@ -73,6 +81,8 @@ class UserCollect(models.Model):
 
     class Meta:
         db_table='UserCollect'
+        verbose_name = '用户收藏'
+        verbose_name_plural = '用户收藏'
     def __str__(self):
         return 'UID:%s GoodsID:%s Time:%s'%(self.UID,self.GoodsID,self.Time)
 
@@ -82,3 +92,5 @@ class goodsPic(models.Model):
 
     class Meta:
         db_table='goodsPIC'
+        verbose_name = '商品图片'
+        verbose_name_plural = '商品图片'

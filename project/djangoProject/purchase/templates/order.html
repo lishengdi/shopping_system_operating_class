@@ -60,7 +60,9 @@
 
 
 <div class="formArea">
+
     <form action="{% url 'buy' GID %}" method="post" id="form">
+       
         <div class="input_field">
             <text class="input_field_text">收件人姓名</text>
             <input type="text" class="input_field_area" name="guestname" id="cname" value="{{usr.UName}}">

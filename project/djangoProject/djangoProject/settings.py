@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-rs3=l0ng7la6ngd=a9w*td7v4ys#3yn@qnurba1(+br%f$2v4x
 DEBUG = True
 
 #请求头Host头，在列表里的才接，防御脏链接。直接写域名。'www.lsd.com'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['xianqu.free.svipss.top','xianqu.fgifast1.vipnps.vip','localhost']
 
 
 # Application definition
